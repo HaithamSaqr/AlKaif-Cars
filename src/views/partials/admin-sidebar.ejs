@@ -1,0 +1,126 @@
+<%
+  var adminPath = currentPath || '';
+  function isAdminActive(path) {
+    if (path === '/admin') {
+      return adminPath === '/admin' || adminPath === '/admin/';
+    }
+    return adminPath.startsWith(path);
+  }
+%>
+<aside class="admin-sidebar" id="adminSidebar">
+  <!-- Logo -->
+  <div class="admin-sidebar-logo">
+    <a href="/admin" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <div style="
+        width: 40px; height: 40px; background: #E31E24; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0;
+      ">K</div>
+      <div style="display:flex;flex-direction:column;line-height:1.2;">
+        <span style="font-size:16px;font-weight:800;color:#fff;">الكيف للسيارات</span>
+        <span style="font-size:10px;color:#E31E24;font-weight:600;letter-spacing:1px;">لوحة التحكم</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="admin-sidebar-nav">
+    <ul>
+      <li>
+        <a href="/admin" class="<%= isAdminActive('/admin') && !isAdminActive('/admin/') ? 'active' : (adminPath === '/admin' || adminPath === '/admin/' ? 'active' : '') %>">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>لوحة التحكم</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/cars" class="<%= isAdminActive('/admin/cars') ? 'active' : '' %>">
+          <i class="fas fa-car"></i>
+          <span>السيارات</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/brands" class="<%= isAdminActive('/admin/brands') ? 'active' : '' %>">
+          <i class="fas fa-tag"></i>
+          <span>العلامات التجارية</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/purchase-requests" class="<%= isAdminActive('/admin/purchase-requests') ? 'active' : '' %>">
+          <i class="fas fa-shopping-cart"></i>
+          <span>طلبات الشراء</span>
+          <% if (typeof newRequestsCount !== 'undefined' && newRequestsCount > 0) { %>
+            <span class="admin-sidebar-badge"><%= newRequestsCount %></span>
+          <% } %>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/contact-messages" class="<%= isAdminActive('/admin/contact-messages') ? 'active' : '' %>">
+          <i class="fas fa-envelope"></i>
+          <span>الرسائل</span>
+          <% if (typeof unreadCount !== 'undefined' && unreadCount > 0) { %>
+            <span class="admin-sidebar-badge"><%= unreadCount %></span>
+          <% } %>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/hero-slides" class="<%= isAdminActive('/admin/hero-slides') ? 'active' : '' %>">
+          <i class="fas fa-images"></i>
+          <span>سلايدر الرئيسية</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/testimonials" class="<%= isAdminActive('/admin/testimonials') ? 'active' : '' %>">
+          <i class="fas fa-star"></i>
+          <span>آراء العملاء</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/branches" class="<%= isAdminActive('/admin/branches') ? 'active' : '' %>">
+          <i class="fas fa-building"></i>
+          <span>الفروع</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/settings" class="<%= isAdminActive('/admin/settings') ? 'active' : '' %>">
+          <i class="fas fa-cog"></i>
+          <span>الإعدادات</span>
+        </a>
+      </li>
+      <% if (typeof user !== 'undefined' && user && user.role === 'admin') { %>
+        <li>
+          <a href="/admin/users" class="<%= isAdminActive('/admin/users') ? 'active' : '' %>">
+            <i class="fas fa-users"></i>
+            <span>المستخدمين</span>
+          </a>
+        </li>
+      <% } %>
+    </ul>
+
+    <!-- Separator -->
+    <div style="border-top:1px solid #383838;margin:16px 0;"></div>
+
+    <ul>
+      <li>
+        <a href="/" target="_blank" rel="noopener">
+          <i class="fas fa-external-link-alt"></i>
+          <span>عرض الموقع</span>
+        </a>
+      </li>
+      <li>
+        <form action="/admin/logout" method="POST" style="margin:0;">
+          <button type="submit" style="
+            display: flex; align-items: center; gap: 12px;
+            width: 100%; padding: 10px 16px; background: none; border: none;
+            color: #B0B0B0; font-family: 'Tajawal', sans-serif; font-size: 14px;
+            font-weight: 600; cursor: pointer; border-radius: 8px;
+            transition: all 0.3s ease; text-align: right;
+          " onmouseover="this.style.background='rgba(227,30,36,0.1)';this.style.color='#E31E24';"
+             onmouseout="this.style.background='none';this.style.color='#B0B0B0';">
+            <i class="fas fa-sign-out-alt" style="width:20px;text-align:center;"></i>
+            <span>تسجيل خروج</span>
+          </button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</aside>

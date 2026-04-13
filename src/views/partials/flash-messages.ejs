@@ -1,0 +1,73 @@
+<% if (typeof flash !== 'undefined' && flash && flash.message) { %>
+  <div class="flash-message flash-<%= flash.type || 'info' %>" id="flashMessage" style="
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    padding: 14px 28px;
+    border-radius: var(--radius-md, 12px);
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 300px;
+    max-width: 600px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    animation: flashSlideIn 0.4s ease;
+    <% if (flash.type === 'success') { %>
+      background: #1B5E20;
+      border: 1px solid #2E7D32;
+      color: #E8F5E9;
+    <% } else if (flash.type === 'error') { %>
+      background: #B71C1C;
+      border: 1px solid #C62828;
+      color: #FFEBEE;
+    <% } else { %>
+      background: #1A1A1A;
+      border: 1px solid #383838;
+      color: #F5F5F5;
+    <% } %>
+  ">
+    <% if (flash.type === 'success') { %>
+      <i class="fas fa-check-circle"></i>
+    <% } else if (flash.type === 'error') { %>
+      <i class="fas fa-exclamation-circle"></i>
+    <% } else { %>
+      <i class="fas fa-info-circle"></i>
+    <% } %>
+    <span><%= flash.message %></span>
+    <button onclick="this.parentElement.remove()" style="
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 18px;
+      margin-right: auto;
+      cursor: pointer;
+      opacity: 0.7;
+      padding: 0 4px;
+    ">&times;</button>
+  </div>
+  <style>
+    @keyframes flashSlideIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    @keyframes flashSlideOut {
+      from { opacity: 1; transform: translateX(-50%) translateY(0); }
+      to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    }
+  </style>
+  <script>
+    (function() {
+      var el = document.getElementById('flashMessage');
+      if (el) {
+        setTimeout(function() {
+          el.style.animation = 'flashSlideOut 0.4s ease forwards';
+          setTimeout(function() { el.remove(); }, 400);
+        }, 5000);
+      }
+    })();
+  </script>
+<% } %>

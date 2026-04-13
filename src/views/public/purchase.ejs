@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head><%- include('../partials/head') %></head>
+<body>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash-messages') %>
+
+<!-- ========== PAGE HEADER ========== -->
+<section class="page-header">
+  <div class="container">
+    <h1>طلب شراء</h1>
+    <div class="breadcrumb">
+      <a href="/">الرئيسية</a>
+      <span class="sep">/</span>
+      <span>طلب شراء</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PURCHASE FORM ========== -->
+<section class="purchase-section">
+  <div class="container">
+    <div class="purchase-form-container">
+
+      <!-- Tabs -->
+      <div class="purchase-tabs">
+        <button class="purchase-tab active" data-tab="individuals">أفراد</button>
+        <button class="purchase-tab" data-tab="corporate">شركات</button>
+      </div>
+
+      <!-- ====== TAB 1: Individuals ====== -->
+      <div id="individuals" class="tab-content active">
+        <div class="purchase-form-box">
+          <form id="individualsForm" novalidate>
+
+            <!-- طريقة الدفع -->
+            <div class="form-group">
+              <label>طريقة الدفع</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="payment_method" value="تمويل" checked>
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">تمويل</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="payment_method" value="كاش">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">كاش</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- السيارة المطلوبة -->
+            <div class="form-group">
+              <label for="ind-car">السيارة المطلوبة</label>
+              <select id="ind-car" name="car" required>
+                <option value="" disabled selected>اختر السيارة</option>
+                <% if (typeof carsDropdown !== 'undefined' && carsDropdown.length > 0) { %>
+                  <% carsDropdown.forEach(function(c) { %>
+                    <option value="<%= c.name_en %> <%= c.year || '' %>"><%= c.name_en %> <%= c.year || '' %></option>
+                  <% }); %>
+                <% } %>
+              </select>
+            </div>
+
+            <!-- السعر -->
+            <div class="form-group">
+              <label for="ind-price">السعر</label>
+              <input type="text" id="ind-price" name="price" placeholder="أدخل السعر المتوقع">
+            </div>
+
+            <!-- الاسم + رقم الجوال -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ind-name">الاسم الكامل</label>
+                <input type="text" id="ind-name" name="full_name" placeholder="أدخل اسمك الكامل" required>
+              </div>
+              <div class="form-group">
+                <label for="ind-phone">رقم الجوال</label>
+                <input type="text" id="ind-phone" name="phone" placeholder="05XXXXXXXX" required>
+              </div>
+            </div>
+
+            <!-- الراتب -->
+            <div class="form-group">
+              <label for="ind-salary">الراتب على جهاز الصراف</label>
+              <input type="text" id="ind-salary" name="salary" placeholder="أدخل مبلغ الراتب">
+            </div>
+
+            <!-- إجمالي الالتزامات -->
+            <div class="form-group">
+              <label for="ind-obligations">إجمالي الالتزامات</label>
+              <input type="text" id="ind-obligations" name="obligations" placeholder="أدخل إجمالي الالتزامات الشهرية">
+            </div>
+
+            <!-- قرض عقاري -->
+            <div class="form-group">
+              <label>هل يوجد قرض عقاري؟</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="mortgage" value="نعم">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">نعم</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="mortgage" value="لا">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">لا</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- الدفعة الأولى -->
+            <div class="form-group">
+              <label>الدفعة الأولى</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="first_payment" value="10%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">10%</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="first_payment" value="15%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">15%</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="first_payment" value="20%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">20%</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="first_payment" value="25%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">25%</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- الدفعة الأخيرة -->
+            <div class="form-group">
+              <label>الدفعة الأخيرة</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="last_payment" value="25%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">25%</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="last_payment" value="30%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">30%</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="last_payment" value="35%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">35%</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="last_payment" value="40%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">40%</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="last_payment" value="45%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">45%</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="last_payment" value="50%">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">50%</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- المدينة -->
+            <div class="form-group">
+              <label for="ind-city">المدينة</label>
+              <select id="ind-city" name="city" required>
+                <option value="" disabled selected>اختر المدينة</option>
+                <option value="الرياض">الرياض</option>
+                <option value="جدة">جدة</option>
+                <option value="مكة المكرمة">مكة المكرمة</option>
+                <option value="المدينة المنورة">المدينة المنورة</option>
+                <option value="الدمام">الدمام</option>
+                <option value="الخبر">الخبر</option>
+                <option value="الظهران">الظهران</option>
+                <option value="أبها">أبها</option>
+                <option value="تبوك">تبوك</option>
+                <option value="حائل">حائل</option>
+                <option value="الطائف">الطائف</option>
+                <option value="بريدة">بريدة</option>
+                <option value="نجران">نجران</option>
+                <option value="جازان">جازان</option>
+                <option value="ينبع">ينبع</option>
+              </select>
+            </div>
+
+            <!-- قطاع التوظيف -->
+            <div class="form-group">
+              <label for="ind-sector">قطاع التوظيف</label>
+              <select id="ind-sector" name="employment_sector" required>
+                <option value="" disabled selected>اختر القطاع</option>
+                <option value="حكومي">حكومي</option>
+                <option value="عسكري">عسكري</option>
+                <option value="قطاع خاص">قطاع خاص</option>
+                <option value="شبه حكومي">شبه حكومي</option>
+                <option value="أعمال حرة">أعمال حرة</option>
+              </select>
+            </div>
+
+            <!-- بنك الراتب -->
+            <div class="form-group">
+              <label for="ind-bank">بنك الراتب</label>
+              <select id="ind-bank" name="bank" required>
+                <option value="" disabled selected>اختر البنك</option>
+                <option value="الراجحي">الراجحي</option>
+                <option value="الأهلي">الأهلي</option>
+                <option value="الإنماء">الإنماء</option>
+                <option value="البلاد">البلاد</option>
+                <option value="الرياض">الرياض</option>
+                <option value="ساب">ساب</option>
+                <option value="العربي">العربي</option>
+              </select>
+            </div>
+
+            <!-- رخصة القيادة -->
+            <div class="form-group">
+              <label>رخصة القيادة</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="license" value="سارية">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">سارية</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="license" value="منتهية">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">منتهية</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="license" value="غير متوفرة">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">غير متوفرة</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="form-submit-btn">
+              <i class="fas fa-paper-plane"></i>
+              إرسال الطلب
+            </button>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- ====== TAB 2: Corporate ====== -->
+      <div id="corporate" class="tab-content">
+        <div class="purchase-form-box">
+          <form id="corporateForm" novalidate>
+
+            <!-- اسم الشركة -->
+            <div class="form-group">
+              <label for="corp-name">اسم الشركة</label>
+              <input type="text" id="corp-name" name="company_name" placeholder="أدخل اسم الشركة" required>
+            </div>
+
+            <!-- البريد الإلكتروني -->
+            <div class="form-group">
+              <label for="corp-email">البريد الإلكتروني الرسمي</label>
+              <input type="email" id="corp-email" name="email" placeholder="info@company.com" required>
+            </div>
+
+            <!-- اسم المدير + رقم الجوال -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="corp-ceo">اسم المدير التنفيذي</label>
+                <input type="text" id="corp-ceo" name="ceo_name" placeholder="أدخل اسم المدير التنفيذي" required>
+              </div>
+              <div class="form-group">
+                <label for="corp-phone">رقم الجوال</label>
+                <input type="text" id="corp-phone" name="phone" placeholder="05XXXXXXXX" required>
+              </div>
+            </div>
+
+            <!-- المقر الرئيسي -->
+            <div class="form-group">
+              <label for="corp-hq">المقر الرئيسي</label>
+              <input type="text" id="corp-hq" name="headquarters" placeholder="عنوان المقر الرئيسي">
+            </div>
+
+            <!-- النشاط التجاري -->
+            <div class="form-group">
+              <label for="corp-activity">النشاط التجاري</label>
+              <input type="text" id="corp-activity" name="business_activity" placeholder="نوع النشاط التجاري">
+            </div>
+
+            <!-- عمر الشركة -->
+            <div class="form-group">
+              <label for="corp-age">عمر الشركة</label>
+              <input type="text" id="corp-age" name="company_age" placeholder="عدد سنوات التأسيس">
+            </div>
+
+            <!-- السيارة المطلوبة -->
+            <div class="form-group">
+              <label for="corp-car">السيارة المطلوبة</label>
+              <select id="corp-car" name="car" required>
+                <option value="" disabled selected>اختر السيارة</option>
+                <% if (typeof carsDropdown !== 'undefined' && carsDropdown.length > 0) { %>
+                  <% carsDropdown.forEach(function(c) { %>
+                    <option value="<%= c.name_en %> <%= c.year || '' %>"><%= c.name_en %> <%= c.year || '' %></option>
+                  <% }); %>
+                <% } %>
+              </select>
+            </div>
+
+            <!-- طريقة الدفع -->
+            <div class="form-group">
+              <label>طريقة الدفع</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="corp_payment_method" value="تمويل">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">تمويل</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="corp_payment_method" value="كاش">
+                  <span class="radio-mark"></span>
+                  <span class="radio-text">كاش</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- بنك الراتب -->
+            <div class="form-group">
+              <label for="corp-bank">بنك الراتب</label>
+              <select id="corp-bank" name="bank" required>
+                <option value="" disabled selected>اختر البنك</option>
+                <option value="الراجحي">الراجحي</option>
+                <option value="الأهلي">الأهلي</option>
+                <option value="الإنماء">الإنماء</option>
+                <option value="البلاد">البلاد</option>
+                <option value="الرياض">الرياض</option>
+                <option value="ساب">ساب</option>
+                <option value="العربي">العربي</option>
+              </select>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="form-submit-btn">
+              <i class="fas fa-paper-plane"></i>
+              إرسال الطلب
+            </button>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/share-modal') %>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
+<script>
+  // Tab switching
+  (function() {
+    var tabs = document.querySelectorAll('.purchase-tab');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        tabs.forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
+        var target = document.getElementById(tab.dataset.tab);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    // Auto-select tab from URL param
+    var params = new URLSearchParams(window.location.search);
+    var tabType = params.get('type');
+    if (tabType === 'corporate') {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
+      var corpTab = document.querySelector('[data-tab="corporate"]');
+      var corpContent = document.getElementById('corporate');
+      if (corpTab) corpTab.classList.add('active');
+      if (corpContent) corpContent.classList.add('active');
+    }
+  })();
+
+  // Individual form submission
+  (function() {
+    var form = document.getElementById('individualsForm');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var formData = new FormData(form);
+      var data = {};
+      formData.forEach(function(value, key) { data[key] = value; });
+
+      fetch('/api/purchase/individual', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(result) {
+        if (result.success) {
+          alert(result.message || 'تم إرسال طلبك بنجاح! سنتواصل معك قريبا.');
+          form.reset();
+        } else {
+          alert(result.message || 'حدث خطأ أثناء إرسال الطلب. حاول مرة أخرى.');
+        }
+      })
+      .catch(function() {
+        alert('حدث خطأ في الاتصال. حاول مرة أخرى.');
+      });
+    });
+  })();
+
+  // Corporate form submission
+  (function() {
+    var form = document.getElementById('corporateForm');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var formData = new FormData(form);
+      var data = {};
+      formData.forEach(function(value, key) { data[key] = value; });
+
+      fetch('/api/purchase/corporate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(result) {
+        if (result.success) {
+          alert(result.message || 'تم إرسال طلبك بنجاح! سنتواصل معك قريبا.');
+          form.reset();
+        } else {
+          alert(result.message || 'حدث خطأ أثناء إرسال الطلب. حاول مرة أخرى.');
+        }
+      })
+      .catch(function() {
+        alert('حدث خطأ في الاتصال. حاول مرة أخرى.');
+      });
+    });
+  })();
+</script>
+</body>
+</html>

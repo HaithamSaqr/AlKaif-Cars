@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head><%- include('../partials/head') %></head>
+<body>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash-messages') %>
+
+<!-- ========== PAGE HEADER ========== -->
+<section class="page-header">
+  <div class="container">
+    <h1>العلامات التجارية</h1>
+    <div class="breadcrumb">
+      <a href="/">الرئيسية</a>
+      <span class="sep">/</span>
+      <span>العلامات التجارية</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BRANDS SECTION ========== -->
+<section class="brands-section">
+  <div class="container">
+    <div class="brands-grid">
+      <% if (typeof brandsWithCount !== 'undefined' && brandsWithCount.length > 0) { %>
+        <% brandsWithCount.forEach(function(brand) { %>
+          <a href="/cars?brand=<%= brand.slug %>" class="brand-card">
+            <i class="fa-solid fa-car-side" style="font-size:36px; color:var(--gray-light);"></i>
+            <span><%= brand.name_ar %></span>
+            <% if (brand.car_count && brand.car_count > 0) { %>
+              <small class="brand-count"><%= brand.car_count %> سيارة</small>
+            <% } %>
+          </a>
+        <% }); %>
+      <% } else { %>
+        <div class="no-results">
+          <p>لا توجد علامات تجارية متاحة حاليا</p>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/share-modal') %>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

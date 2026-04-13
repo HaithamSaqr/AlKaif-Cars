@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="breadcrumbs">
+      <a href="/admin">لوحة التحكم</a> /
+      <a href="/admin/purchase-requests">طلبات الشراء</a> /
+      <span>طلب #<%= request.id %></span>
+    </div>
+
+    <div class="page-header">
+      <h1>تفاصيل طلب الشراء #<%= request.id %></h1>
+      <span class="badge badge-<%= request.status %>" style="font-size:14px;padding:6px 16px;">
+        <%= request.status === 'new' ? 'جديد' : request.status === 'in_progress' ? 'قيد المعالجة' : request.status === 'completed' ? 'مكتمل' : 'ملغي' %>
+      </span>
+    </div>
+
+    <div class="detail-card">
+      <div class="form-section">
+        <h3>معلومات مقدم الطلب</h3>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">نوع الطلب</div>
+        <div class="detail-value"><%= request.request_type === 'individual' ? 'فرد' : 'شركة' %></div>
+      </div>
+      <% if (request.full_name) { %>
+      <div class="detail-row">
+        <div class="detail-label">الاسم الكامل</div>
+        <div class="detail-value"><%= request.full_name %></div>
+      </div>
+      <% } %>
+      <% if (request.company_name) { %>
+      <div class="detail-row">
+        <div class="detail-label">اسم الشركة</div>
+        <div class="detail-value"><%= request.company_name %></div>
+      </div>
+      <% } %>
+      <% if (request.ceo_name) { %>
+      <div class="detail-row">
+        <div class="detail-label">اسم المدير التنفيذي</div>
+        <div class="detail-value"><%= request.ceo_name %></div>
+      </div>
+      <% } %>
+      <div class="detail-row">
+        <div class="detail-label">الهاتف</div>
+        <div class="detail-value" dir="ltr"><%= request.phone || '---' %></div>
+      </div>
+      <% if (request.email) { %>
+      <div class="detail-row">
+        <div class="detail-label">البريد الإلكتروني</div>
+        <div class="detail-value"><%= request.email %></div>
+      </div>
+      <% } %>
+      <% if (request.city) { %>
+      <div class="detail-row">
+        <div class="detail-label">المدينة</div>
+        <div class="detail-value"><%= request.city %></div>
+      </div>
+      <% } %>
+    </div>
+
+    <div class="detail-card">
+      <div class="form-section">
+        <h3>معلومات السيارة</h3>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">السيارة</div>
+        <div class="detail-value"><%= request.car_name_en || request.car_name || '---' %></div>
+      </div>
+      <% if (request.price) { %>
+      <div class="detail-row">
+        <div class="detail-label">السعر</div>
+        <div class="detail-value"><%= Number(request.price).toLocaleString() %> ر.س</div>
+      </div>
+      <% } %>
+    </div>
+
+    <% if (request.request_type === 'individual') { %>
+    <div class="detail-card">
+      <div class="form-section">
+        <h3>معلومات التمويل</h3>
+      </div>
+      <% if (request.payment_method) { %>
+      <div class="detail-row">
+        <div class="detail-label">طريقة الدفع</div>
+        <div class="detail-value"><%= request.payment_method %></div>
+      </div>
+      <% } %>
+      <% if (request.salary) { %>
+      <div class="detail-row">
+        <div class="detail-label">الراتب</div>
+        <div class="detail-value"><%= Number(request.salary).toLocaleString() %> ر.س</div>
+      </div>
+      <% } %>
+      <% if (request.obligations) { %>
+      <div class="detail-row">
+        <div class="detail-label">الالتزامات الشهرية</div>
+        <div class="detail-value"><%= Number(request.obligations).toLocaleString() %> ر.س</div>
+      </div>
+      <% } %>
+      <% if (request.has_mortgage) { %>
+      <div class="detail-row">
+        <div class="detail-label">قرض عقاري</div>
+        <div class="detail-value"><%= request.has_mortgage %></div>
+      </div>
+      <% } %>
+      <% if (request.first_payment) { %>
+      <div class="detail-row">
+        <div class="detail-label">الدفعة الأولى</div>
+        <div class="detail-value"><%= request.first_payment %></div>
+      </div>
+      <% } %>
+      <% if (request.last_payment) { %>
+      <div class="detail-row">
+        <div class="detail-label">الدفعة الأخيرة</div>
+        <div class="detail-value"><%= request.last_payment %></div>
+      </div>
+      <% } %>
+      <% if (request.employment_sector) { %>
+      <div class="detail-row">
+        <div class="detail-label">قطاع العمل</div>
+        <div class="detail-value"><%= request.employment_sector %></div>
+      </div>
+      <% } %>
+      <% if (request.bank) { %>
+      <div class="detail-row">
+        <div class="detail-label">البنك</div>
+        <div class="detail-value"><%= request.bank %></div>
+      </div>
+      <% } %>
+      <% if (request.driving_license) { %>
+      <div class="detail-row">
+        <div class="detail-label">رخصة القيادة</div>
+        <div class="detail-value"><%= request.driving_license %></div>
+      </div>
+      <% } %>
+    </div>
+    <% } else { %>
+    <div class="detail-card">
+      <div class="form-section">
+        <h3>معلومات الشركة</h3>
+      </div>
+      <% if (request.headquarters) { %>
+      <div class="detail-row">
+        <div class="detail-label">المقر الرئيسي</div>
+        <div class="detail-value"><%= request.headquarters %></div>
+      </div>
+      <% } %>
+      <% if (request.business_activity) { %>
+      <div class="detail-row">
+        <div class="detail-label">النشاط التجاري</div>
+        <div class="detail-value"><%= request.business_activity %></div>
+      </div>
+      <% } %>
+      <% if (request.company_age) { %>
+      <div class="detail-row">
+        <div class="detail-label">عمر الشركة</div>
+        <div class="detail-value"><%= request.company_age %></div>
+      </div>
+      <% } %>
+    </div>
+    <% } %>
+
+    <div class="detail-card">
+      <div class="form-section">
+        <h3>معلومات إضافية</h3>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">تاريخ الطلب</div>
+        <div class="detail-value"><%= request.created_at ? new Date(request.created_at).toLocaleString('ar-EG') : '---' %></div>
+      </div>
+      <% if (request.admin_notes) { %>
+      <div class="detail-row">
+        <div class="detail-label">ملاحظات الإدارة</div>
+        <div class="detail-value"><%= request.admin_notes %></div>
+      </div>
+      <% } %>
+    </div>
+
+    <!-- Status Update Form -->
+    <div class="form-card">
+      <div class="form-section">
+        <h3>تحديث الحالة</h3>
+      </div>
+      <form action="/admin/purchase-requests/<%= request.id %>/status" method="POST" data-loading>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="status">الحالة الجديدة</label>
+            <select name="status" id="status" class="form-control">
+              <option value="new" <%= request.status === 'new' ? 'selected' : '' %>>جديد</option>
+              <option value="in_progress" <%= request.status === 'in_progress' ? 'selected' : '' %>>قيد المعالجة</option>
+              <option value="completed" <%= request.status === 'completed' ? 'selected' : '' %>>مكتمل</option>
+              <option value="cancelled" <%= request.status === 'cancelled' ? 'selected' : '' %>>ملغي</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="admin_notes">ملاحظات الإدارة</label>
+          <textarea name="admin_notes" id="admin_notes" class="form-control" rows="3"><%= request.admin_notes || '' %></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> حفظ</button>
+      </form>
+    </div>
+
+    <a href="/admin/purchase-requests" class="btn btn-outline"><i class="fas fa-arrow-right"></i> رجوع للقائمة</a>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

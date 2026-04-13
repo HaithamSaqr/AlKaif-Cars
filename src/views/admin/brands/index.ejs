@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="page-header">
+      <h1>العلامات التجارية</h1>
+      <a href="/admin/brands/create" class="btn btn-primary"><i class="fas fa-plus"></i> إضافة علامة</a>
+    </div>
+
+    <div class="table-wrapper">
+      <div class="table-search">
+        <input type="text" class="form-control table-search-input" data-table="brandsTable" placeholder="بحث في العلامات...">
+      </div>
+      <table class="admin-table" id="brandsTable">
+        <thead>
+          <tr>
+            <th>الشعار</th>
+            <th>الاسم (عربي)</th>
+            <th>الاسم (إنجليزي)</th>
+            <th>عدد السيارات</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (brands && brands.length > 0) { %>
+            <% brands.forEach(function(brand) { %>
+            <tr>
+              <td>
+                <% if (brand.logo_path) { %>
+                  <img src="<%= brand.logo_path %>" alt="<%= brand.name_en %>" class="table-thumb" style="background:transparent;">
+                <% } else { %>
+                  <div class="table-thumb" style="display:flex;align-items:center;justify-content:center;background:var(--bg-input);">
+                    <i class="fas fa-image" style="color:#555;"></i>
+                  </div>
+                <% } %>
+              </td>
+              <td><%= brand.name_ar || '---' %></td>
+              <td><%= brand.name_en || '---' %></td>
+              <td><%= typeof brand.car_count !== 'undefined' ? brand.car_count : '---' %></td>
+              <td>
+                <div class="table-actions">
+                  <a href="/admin/brands/<%= brand.id %>/edit" class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></a>
+                  <form action="/admin/brands/<%= brand.id %>/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('هل أنت متأكد من الحذف؟')"><i class="fas fa-trash"></i></button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="5" style="text-align:center;color:var(--gray);padding:32px;">لا توجد علامات تجارية</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="page-header">
+      <h1>إدارة الشهادات</h1>
+      <a href="/admin/testimonials/create" class="btn btn-primary"><i class="fas fa-plus"></i> إضافة شهادة</a>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>الحرف</th>
+            <th>الاسم</th>
+            <th>المنصب</th>
+            <th>التقييم</th>
+            <th>الحالة</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (testimonials && testimonials.length > 0) { %>
+            <% testimonials.forEach(function(t) { %>
+            <tr>
+              <td>
+                <div style="width:36px;height:36px;background:rgba(227,30,36,.15);color:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;">
+                  <%= t.author_initial || (t.author_name ? t.author_name.charAt(0) : '?') %>
+                </div>
+              </td>
+              <td><%= t.author_name %></td>
+              <td><%= t.author_role || '---' %></td>
+              <td>
+                <% for (var s = 0; s < 5; s++) { %>
+                  <i class="fas fa-star" style="color:<%= s < (t.rating || 5) ? '#f0ad4e' : '#383838' %>;font-size:12px;"></i>
+                <% } %>
+              </td>
+              <td>
+                <span class="badge badge-<%= t.is_active ? 'green' : 'gray' %>">
+                  <%= t.is_active ? 'مفعل' : 'معطل' %>
+                </span>
+              </td>
+              <td>
+                <div class="table-actions">
+                  <a href="/admin/testimonials/<%= t.id %>/edit" class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></a>
+                  <form action="/admin/testimonials/<%= t.id %>/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('هل أنت متأكد من الحذف؟')"><i class="fas fa-trash"></i></button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="6" style="text-align:center;color:var(--gray);padding:32px;">لا توجد شهادات</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

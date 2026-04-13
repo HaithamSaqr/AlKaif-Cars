@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="breadcrumbs">
+      <a href="/admin">لوحة التحكم</a> /
+      <a href="/admin/users">المستخدمين</a> /
+      <span><%= userRecord ? 'تعديل المستخدم' : 'إضافة مستخدم جديد' %></span>
+    </div>
+
+    <h1><%= userRecord ? 'تعديل المستخدم' : 'إضافة مستخدم جديد' %></h1>
+
+    <form action="<%= userRecord ? '/admin/users/' + userRecord.id + '/edit' : '/admin/users/create' %>" method="POST" data-loading>
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="username">اسم المستخدم</label>
+            <input type="text" name="username" id="username" class="form-control" value="<%= userRecord ? userRecord.username : '' %>" required>
+          </div>
+          <div class="form-group">
+            <label for="email">البريد الإلكتروني</label>
+            <input type="email" name="email" id="email" class="form-control" value="<%= userRecord ? userRecord.email : '' %>">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="full_name">الاسم الكامل</label>
+          <input type="text" name="full_name" id="full_name" class="form-control" value="<%= userRecord ? userRecord.full_name : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label for="password">كلمة المرور <%= userRecord ? '(اتركها فارغة للإبقاء على الحالية)' : '' %></label>
+          <input type="password" name="password" id="password" class="form-control" <%= !userRecord ? 'required' : '' %> minlength="6" placeholder="<%= userRecord ? 'اتركها فارغة إذا لم ترد التغيير' : 'أدخل كلمة المرور' %>">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="role">الصلاحية</label>
+            <select name="role" id="role" class="form-control">
+              <option value="admin" <%= userRecord && userRecord.role === 'admin' ? 'selected' : '' %>>مدير</option>
+              <option value="editor" <%= userRecord && userRecord.role === 'editor' ? 'selected' : '' %>>محرر</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-check">
+            <input type="checkbox" name="is_active" value="1" <%= (!userRecord || userRecord.is_active) ? 'checked' : '' %>>
+            الحساب مفعل
+          </label>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:16px;">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> <%= userRecord ? 'حفظ التعديلات' : 'إضافة المستخدم' %></button>
+        <a href="/admin/users" class="btn btn-outline">إلغاء</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

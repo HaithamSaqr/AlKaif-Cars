@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="breadcrumbs">
+      <a href="/admin">لوحة التحكم</a> /
+      <a href="/admin/hero-slides">السلايدر</a> /
+      <span><%= slide ? 'تعديل الشريحة' : 'إضافة شريحة جديدة' %></span>
+    </div>
+
+    <h1><%= slide ? 'تعديل الشريحة' : 'إضافة شريحة جديدة' %></h1>
+
+    <form action="<%= slide ? '/admin/hero-slides/' + slide.id + '/edit' : '/admin/hero-slides/create' %>" method="POST" enctype="multipart/form-data" data-loading>
+      <div class="form-card">
+        <div class="form-section">
+          <h3>المحتوى</h3>
+          <div class="form-group">
+            <label for="title">العنوان</label>
+            <input type="text" name="title" id="title" class="form-control" value="<%= slide ? slide.title : '' %>">
+          </div>
+          <div class="form-group">
+            <label for="subtitle">العنوان الفرعي</label>
+            <input type="text" name="subtitle" id="subtitle" class="form-control" value="<%= slide ? slide.subtitle : '' %>">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tag">الوسم</label>
+              <input type="text" name="tag" id="tag" class="form-control" value="<%= slide ? slide.tag : '' %>" placeholder="مثال: جديد">
+            </div>
+            <div class="form-group">
+              <label for="brand_watermark">العلامة المائية</label>
+              <input type="text" name="brand_watermark" id="brand_watermark" class="form-control" value="<%= slide ? slide.brand_watermark : '' %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="price">السعر</label>
+            <input type="text" name="price" id="price" class="form-control" value="<%= slide ? slide.price : '' %>" placeholder="مثال: 250,000 ر.س">
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>الرابط</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="link_url">رابط الزر</label>
+              <input type="text" name="link_url" id="link_url" class="form-control" value="<%= slide ? slide.link_url : '' %>" placeholder="/cars/slug">
+            </div>
+            <div class="form-group">
+              <label for="link_text">نص الزر</label>
+              <input type="text" name="link_text" id="link_text" class="form-control" value="<%= slide ? slide.link_text : '' %>" placeholder="مثال: اعرف المزيد">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>الخلفية</h3>
+          <div class="form-group">
+            <label for="bg_gradient">تدرج الخلفية (CSS)</label>
+            <input type="text" name="bg_gradient" id="bg_gradient" class="form-control" value="<%= slide ? slide.bg_gradient : '' %>" placeholder="linear-gradient(135deg, #1a1a1a, #0d0d0d)" dir="ltr">
+          </div>
+          <div class="form-group">
+            <label>صورة الخلفية</label>
+            <div class="upload-area" data-input="bgImageFile">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>اضغط لاختيار صورة الخلفية</p>
+            </div>
+            <input type="file" name="bg_image" id="bgImageFile" accept="image/*" data-preview="bgImagePreview" style="display:none;">
+            <div id="bgImagePreview" class="image-preview-grid"></div>
+          </div>
+          <% if (slide && slide.bg_image_path) { %>
+          <div class="form-group">
+            <label style="color:var(--gray);font-weight:600;">الصورة الحالية</label>
+            <div class="image-preview-grid">
+              <div class="image-preview-item">
+                <img src="<%= slide.bg_image_path %>" alt="خلفية الشريحة">
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+        <div class="form-section">
+          <h3>الإعدادات</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="sort_order">ترتيب العرض</label>
+              <input type="number" name="sort_order" id="sort_order" class="form-control" value="<%= slide ? slide.sort_order : 0 %>" min="0">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" name="is_active" value="1" <%= (!slide || slide.is_active) ? 'checked' : '' %>>
+              مفعل
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:16px;">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> <%= slide ? 'حفظ التعديلات' : 'إضافة الشريحة' %></button>
+        <a href="/admin/hero-slides" class="btn btn-outline">إلغاء</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="breadcrumbs">
+      <a href="/admin">لوحة التحكم</a> /
+      <a href="/admin/testimonials">الشهادات</a> /
+      <span><%= testimonial ? 'تعديل الشهادة' : 'إضافة شهادة جديدة' %></span>
+    </div>
+
+    <h1><%= testimonial ? 'تعديل الشهادة' : 'إضافة شهادة جديدة' %></h1>
+
+    <form action="<%= testimonial ? '/admin/testimonials/' + testimonial.id + '/edit' : '/admin/testimonials/create' %>" method="POST" data-loading>
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="author_name">اسم الكاتب</label>
+            <input type="text" name="author_name" id="author_name" class="form-control" value="<%= testimonial ? testimonial.author_name : '' %>" required>
+          </div>
+          <div class="form-group">
+            <label for="author_role">المنصب / الوصف</label>
+            <input type="text" name="author_role" id="author_role" class="form-control" value="<%= testimonial ? testimonial.author_role : '' %>" placeholder="مثال: عميل مميز">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="author_initial">الحرف الأول</label>
+            <input type="text" name="author_initial" id="author_initial" class="form-control" value="<%= testimonial ? testimonial.author_initial : '' %>" maxlength="2" placeholder="مثال: أ">
+          </div>
+          <div class="form-group">
+            <label for="rating">التقييم</label>
+            <select name="rating" id="rating" class="form-control">
+              <option value="5" <%= testimonial && testimonial.rating === 5 ? 'selected' : (!testimonial ? 'selected' : '') %>>5 نجوم</option>
+              <option value="4" <%= testimonial && testimonial.rating === 4 ? 'selected' : '' %>>4 نجوم</option>
+              <option value="3" <%= testimonial && testimonial.rating === 3 ? 'selected' : '' %>>3 نجوم</option>
+              <option value="2" <%= testimonial && testimonial.rating === 2 ? 'selected' : '' %>>نجمتان</option>
+              <option value="1" <%= testimonial && testimonial.rating === 1 ? 'selected' : '' %>>نجمة واحدة</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="content">نص الشهادة</label>
+          <textarea name="content" id="content" class="form-control" rows="4" required><%= testimonial ? testimonial.content : '' %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-check">
+            <input type="checkbox" name="is_active" value="1" <%= (!testimonial || testimonial.is_active) ? 'checked' : '' %>>
+            مفعل
+          </label>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:16px;">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> <%= testimonial ? 'حفظ التعديلات' : 'إضافة الشهادة' %></button>
+        <a href="/admin/testimonials" class="btn btn-outline">إلغاء</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="breadcrumbs">
+      <a href="/admin">لوحة التحكم</a> /
+      <a href="/admin/branches">الفروع</a> /
+      <span><%= branch ? 'تعديل الفرع' : 'إضافة فرع جديد' %></span>
+    </div>
+
+    <h1><%= branch ? 'تعديل الفرع' : 'إضافة فرع جديد' %></h1>
+
+    <form action="<%= branch ? '/admin/branches/' + branch.id + '/edit' : '/admin/branches/create' %>" method="POST" data-loading>
+      <div class="form-card">
+        <div class="form-group">
+          <label for="name">اسم الفرع</label>
+          <input type="text" name="name" id="name" class="form-control" value="<%= branch ? branch.name : '' %>" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">المدينة</label>
+            <input type="text" name="city" id="city" class="form-control" value="<%= branch ? branch.city : '' %>">
+          </div>
+          <div class="form-group">
+            <label for="phone">الهاتف</label>
+            <input type="text" name="phone" id="phone" class="form-control" value="<%= branch ? branch.phone : '' %>" dir="ltr">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">العنوان</label>
+          <input type="text" name="address" id="address" class="form-control" value="<%= branch ? branch.address : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp_url">رابط الواتساب</label>
+          <input type="text" name="whatsapp_url" id="whatsapp_url" class="form-control" value="<%= branch ? branch.whatsapp_url : '' %>" dir="ltr" placeholder="https://wa.me/966xxxxxxxxx">
+        </div>
+
+        <div class="form-group">
+          <label for="working_hours">ساعات العمل</label>
+          <textarea name="working_hours" id="working_hours" class="form-control" rows="3" placeholder="السبت - الخميس: 9 صباحاً - 10 مساءً&#10;الجمعة: مغلق"><%= branch ? branch.working_hours : '' %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="sort_order">ترتيب العرض</label>
+          <input type="number" name="sort_order" id="sort_order" class="form-control" value="<%= branch ? branch.sort_order : 0 %>" min="0">
+        </div>
+
+        <div class="form-group">
+          <label class="form-check">
+            <input type="checkbox" name="is_active" value="1" <%= (!branch || branch.is_active) ? 'checked' : '' %>>
+            الفرع مفعل
+          </label>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:16px;">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> <%= branch ? 'حفظ التعديلات' : 'إضافة الفرع' %></button>
+        <a href="/admin/branches" class="btn btn-outline">إلغاء</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

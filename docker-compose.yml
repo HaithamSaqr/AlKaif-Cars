@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  elkaif-cars:
+    build: .
+    container_name: elkaif-cars
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - SESSION_SECRET=${SESSION_SECRET:-elkaif-cars-prod-secret-change-this-in-production}
+    volumes:
+      - elkaif-data:/app/data
+      - elkaif-uploads:/app/public/uploads
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  elkaif-data:
+    driver: local
+  elkaif-uploads:
+    driver: local

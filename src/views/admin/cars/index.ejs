@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="page-header">
+      <h1>إدارة السيارات</h1>
+      <a href="/admin/cars/create" class="btn btn-primary"><i class="fas fa-plus"></i> إضافة سيارة</a>
+    </div>
+
+    <div class="table-wrapper">
+      <div class="table-search">
+        <input type="text" class="form-control table-search-input" data-table="carsTable" placeholder="بحث في السيارات...">
+      </div>
+      <table class="admin-table" id="carsTable">
+        <thead>
+          <tr>
+            <th>صورة</th>
+            <th>الاسم</th>
+            <th>العلامة</th>
+            <th>السنة</th>
+            <th>السعر</th>
+            <th>الحالة</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (cars && cars.length > 0) { %>
+            <% cars.forEach(function(car) { %>
+            <tr>
+              <td>
+                <% if (car.primary_image) { %>
+                  <img src="<%= car.primary_image %>" alt="<%= car.name_en %>" class="table-thumb">
+                <% } else { %>
+                  <div class="table-thumb" style="background:linear-gradient(135deg,#2D2D2D,#1A1A1A);display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-car" style="color:#555;"></i>
+                  </div>
+                <% } %>
+              </td>
+              <td><%= car.name_en || car.name_ar %></td>
+              <td><%= car.brand_name_ar || car.brand_name_en || '---' %></td>
+              <td><%= car.year || '---' %></td>
+              <td>
+                <% if (car.price_on_request) { %>
+                  <span style="color:var(--gray);">السعر عند الطلب</span>
+                <% } else if (car.price) { %>
+                  <%= Number(car.price).toLocaleString() %> ر.س
+                <% } else { %>
+                  ---
+                <% } %>
+              </td>
+              <td>
+                <span class="badge badge-<%= car.condition === 'new' ? 'green' : 'yellow' %>">
+                  <%= car.condition === 'new' ? 'جديد' : 'مستعمل' %>
+                </span>
+              </td>
+              <td>
+                <div class="table-actions">
+                  <a href="/admin/cars/<%= car.id %>/edit" class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></a>
+                  <form action="/admin/cars/<%= car.id %>/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('هل أنت متأكد من الحذف؟')"><i class="fas fa-trash"></i></button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="7" style="text-align:center;color:var(--gray);padding:32px;">لا توجد سيارات</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if (pages > 1) { %>
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+        <a href="/admin/cars?page=<%= currentPage - 1 %>"><i class="fas fa-chevron-right"></i></a>
+      <% } %>
+      <% for (var i = 1; i <= pages; i++) { %>
+        <a href="/admin/cars?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+      <% } %>
+      <% if (currentPage < pages) { %>
+        <a href="/admin/cars?page=<%= currentPage + 1 %>"><i class="fas fa-chevron-left"></i></a>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

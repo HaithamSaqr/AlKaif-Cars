@@ -1,0 +1,120 @@
+<%
+  var _currentPage = typeof currentPage !== 'undefined' ? Number(currentPage) : 1;
+  var _totalPages = typeof totalPages !== 'undefined' ? Number(totalPages) : 1;
+  var _baseUrl = typeof baseUrl !== 'undefined' ? baseUrl : '/cars';
+
+  // Build URL with page parameter, preserving existing query params
+  function buildPageUrl(page) {
+    if (_baseUrl.indexOf('?') !== -1) {
+      return _baseUrl + '&page=' + page;
+    }
+    return _baseUrl + '?page=' + page;
+  }
+
+  // Calculate visible page range (show max 5 pages around current)
+  var startPage = Math.max(1, _currentPage - 2);
+  var endPage = Math.min(_totalPages, _currentPage + 2);
+  if (endPage - startPage < 4 && _totalPages >= 5) {
+    if (startPage === 1) {
+      endPage = Math.min(_totalPages, 5);
+    } else if (endPage === _totalPages) {
+      startPage = Math.max(1, _totalPages - 4);
+    }
+  }
+%>
+<% if (_totalPages > 1) { %>
+  <nav class="pagination" aria-label="التنقل بين الصفحات" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 40px 0;
+  ">
+    <!-- Previous Button -->
+    <% if (_currentPage > 1) { %>
+      <a href="<%= buildPageUrl(_currentPage - 1) %>" class="pagination-btn" aria-label="الصفحة السابقة" style="
+        width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+        background: var(--bg-secondary); border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm, 8px); color: var(--gray-light);
+        font-size: 14px; transition: all 0.3s ease;
+      ">
+        <i class="fas fa-chevron-right"></i>
+      </a>
+    <% } else { %>
+      <span class="pagination-btn disabled" style="
+        width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+        background: var(--bg-secondary); border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm, 8px); color: var(--gray-mid);
+        font-size: 14px; opacity: 0.5; cursor: not-allowed;
+      ">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+    <% } %>
+
+    <!-- First Page + Dots -->
+    <% if (startPage > 1) { %>
+      <a href="<%= buildPageUrl(1) %>" class="pagination-btn" style="
+        width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+        background: var(--bg-secondary); border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm, 8px); color: var(--gray-light);
+        font-size: 14px; font-weight: 600; transition: all 0.3s ease;
+      ">1</a>
+      <% if (startPage > 2) { %>
+        <span style="color: var(--gray-mid); padding: 0 4px;">...</span>
+      <% } %>
+    <% } %>
+
+    <!-- Page Numbers -->
+    <% for (var i = startPage; i <= endPage; i++) { %>
+      <% if (i === _currentPage) { %>
+        <span class="pagination-btn active" style="
+          width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+          background: var(--red-primary, #E31E24); border: 1px solid var(--red-primary, #E31E24);
+          border-radius: var(--radius-sm, 8px); color: var(--white, #fff);
+          font-size: 14px; font-weight: 700;
+        "><%= i %></span>
+      <% } else { %>
+        <a href="<%= buildPageUrl(i) %>" class="pagination-btn" style="
+          width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+          background: var(--bg-secondary); border: 1px solid var(--border-color);
+          border-radius: var(--radius-sm, 8px); color: var(--gray-light);
+          font-size: 14px; font-weight: 600; transition: all 0.3s ease;
+        "><%= i %></a>
+      <% } %>
+    <% } %>
+
+    <!-- Last Page + Dots -->
+    <% if (endPage < _totalPages) { %>
+      <% if (endPage < _totalPages - 1) { %>
+        <span style="color: var(--gray-mid); padding: 0 4px;">...</span>
+      <% } %>
+      <a href="<%= buildPageUrl(_totalPages) %>" class="pagination-btn" style="
+        width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+        background: var(--bg-secondary); border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm, 8px); color: var(--gray-light);
+        font-size: 14px; font-weight: 600; transition: all 0.3s ease;
+      "><%= _totalPages %></a>
+    <% } %>
+
+    <!-- Next Button -->
+    <% if (_currentPage < _totalPages) { %>
+      <a href="<%= buildPageUrl(_currentPage + 1) %>" class="pagination-btn" aria-label="الصفحة التالية" style="
+        width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+        background: var(--bg-secondary); border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm, 8px); color: var(--gray-light);
+        font-size: 14px; transition: all 0.3s ease;
+      ">
+        <i class="fas fa-chevron-left"></i>
+      </a>
+    <% } else { %>
+      <span class="pagination-btn disabled" style="
+        width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+        background: var(--bg-secondary); border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm, 8px); color: var(--gray-mid);
+        font-size: 14px; opacity: 0.5; cursor: not-allowed;
+      ">
+        <i class="fas fa-chevron-left"></i>
+      </span>
+    <% } %>
+  </nav>
+<% } %>

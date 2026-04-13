@@ -1,0 +1,12 @@
+node_modules
+.git
+.claude
+.env
+.env.example
+_archive
+quotation
+data/*.db
+data/sessions.db
+*.html
+*.md
+.gitignore

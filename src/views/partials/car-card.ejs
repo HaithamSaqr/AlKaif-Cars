@@ -1,0 +1,66 @@
+<%
+  var brandName = car.brand_name_ar || (car.brand && car.brand.name_ar) || '';
+  var carImage = car.primary_image || null;
+  var carCondition = car.condition || 'used';
+  var conditionLabel = carCondition === 'new' ? 'جديدة' : 'مستعملة';
+  var conditionClass = carCondition === 'new' ? 'new' : 'used';
+%>
+<div class="car-card">
+  <a href="/cars/<%= car.slug %>" class="car-card-img">
+    <% if (carImage) { %>
+      <img src="/uploads/cars/<%= carImage %>" alt="<%= car.name_ar || car.name_en %>" loading="lazy">
+    <% } else { %>
+      <div style="width:100%;height:100%;background:linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));display:flex;align-items:center;justify-content:center;">
+        <i class="fas fa-car" style="font-size:48px;color:var(--gray-mid);"></i>
+      </div>
+    <% } %>
+    <span class="car-card-badge <%= conditionClass %>"><%= conditionLabel %></span>
+    <div class="car-card-actions">
+      <button class="car-card-action-btn favorite-btn" data-car-id="<%= car.id %>" title="إضافة للمفضلة">
+        <i class="far fa-heart"></i>
+      </button>
+      <button class="car-card-action-btn share-btn" data-url="/cars/<%= car.slug %>" data-title="<%= car.name_ar || car.name_en %>" title="مشاركة">
+        <i class="fas fa-share-alt"></i>
+      </button>
+    </div>
+  </a>
+
+  <div class="car-card-body">
+    <div class="car-card-brand"><%= brandName %></div>
+    <h3 class="car-card-name"><%= car.name_ar || car.name_en %></h3>
+    <div class="car-card-year"><%= car.year || '' %></div>
+
+    <div class="car-card-specs">
+      <% if (car.fuel_type) { %>
+        <span class="car-card-spec">
+          <i class="fas fa-gas-pump"></i>
+          <%= car.fuel_type === 'petrol' ? 'بنزين' : car.fuel_type === 'diesel' ? 'ديزل' : car.fuel_type === 'electric' ? 'كهربائي' : car.fuel_type === 'hybrid' ? 'هجين' : car.fuel_type %>
+        </span>
+      <% } %>
+      <% if (car.body_type) { %>
+        <span class="car-card-spec">
+          <i class="fas fa-car-side"></i>
+          <%= car.body_type %>
+        </span>
+      <% } %>
+      <% if (car.mileage != null) { %>
+        <span class="car-card-spec">
+          <i class="fas fa-tachometer-alt"></i>
+          <%= Number(car.mileage).toLocaleString('ar-EG') %> كم
+        </span>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="car-card-footer">
+    <% if (car.price_on_request) { %>
+      <span class="car-card-price on-request">السعر عند الاستفسار</span>
+    <% } else { %>
+      <span class="car-card-price">
+        <span class="currency">ج.م</span>
+        <%= car.price ? Number(car.price).toLocaleString('ar-EG') : '---' %>
+      </span>
+    <% } %>
+    <a href="/cars/<%= car.slug %>" class="car-card-detail-btn">التفاصيل <i class="fas fa-arrow-left"></i></a>
+  </div>
+</div>

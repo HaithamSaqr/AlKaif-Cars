@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="page-header">
+      <h1>إدارة السلايدر</h1>
+      <a href="/admin/hero-slides/create" class="btn btn-primary"><i class="fas fa-plus"></i> إضافة شريحة</a>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>العنوان</th>
+            <th>الوسم</th>
+            <th>السعر</th>
+            <th>الحالة</th>
+            <th>الترتيب</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (slides && slides.length > 0) { %>
+            <% slides.forEach(function(slide) { %>
+            <tr>
+              <td><%= slide.title || '---' %></td>
+              <td><%= slide.tag || '---' %></td>
+              <td><%= slide.price || '---' %></td>
+              <td>
+                <span class="badge badge-<%= slide.is_active ? 'green' : 'gray' %>">
+                  <%= slide.is_active ? 'مفعل' : 'معطل' %>
+                </span>
+              </td>
+              <td><%= slide.sort_order %></td>
+              <td>
+                <div class="table-actions">
+                  <a href="/admin/hero-slides/<%= slide.id %>/edit" class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></a>
+                  <form action="/admin/hero-slides/<%= slide.id %>/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('هل أنت متأكد من الحذف؟')"><i class="fas fa-trash"></i></button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="6" style="text-align:center;color:var(--gray);padding:32px;">لا توجد شرائح</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

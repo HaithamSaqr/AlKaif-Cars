@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <h1>إعدادات الموقع</h1>
+
+    <form action="/admin/settings" method="POST" data-loading>
+      <!-- Site Info -->
+      <div class="form-card">
+        <div class="form-section">
+          <h3>معلومات الموقع</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="site_name">اسم الموقع (عربي)</label>
+              <input type="text" name="site_name" id="site_name" class="form-control" value="<%= settings.site_name || '' %>">
+            </div>
+            <div class="form-group">
+              <label for="site_name_en">اسم الموقع (إنجليزي)</label>
+              <input type="text" name="site_name_en" id="site_name_en" class="form-control" value="<%= settings.site_name_en || '' %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="footer_description">وصف التذييل</label>
+            <textarea name="footer_description" id="footer_description" class="form-control" rows="3"><%= settings.footer_description || '' %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="form-card">
+        <div class="form-section">
+          <h3>بيانات التواصل</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">رقم الهاتف</label>
+              <input type="text" name="phone" id="phone" class="form-control" value="<%= settings.phone || '' %>" dir="ltr">
+            </div>
+            <div class="form-group">
+              <label for="email">البريد الإلكتروني</label>
+              <input type="email" name="email" id="email" class="form-control" value="<%= settings.email || '' %>" dir="ltr">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="whatsapp">واتساب</label>
+              <input type="text" name="whatsapp" id="whatsapp" class="form-control" value="<%= settings.whatsapp || '' %>" dir="ltr" placeholder="966xxxxxxxxx">
+            </div>
+            <div class="form-group">
+              <label for="address">العنوان</label>
+              <input type="text" name="address" id="address" class="form-control" value="<%= settings.address || '' %>">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Media -->
+      <div class="form-card">
+        <div class="form-section">
+          <h3>روابط التواصل الاجتماعي</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="facebook_url"><i class="fab fa-facebook" style="color:#1877F2;"></i> فيسبوك</label>
+              <input type="url" name="facebook_url" id="facebook_url" class="form-control" value="<%= settings.facebook_url || settings.facebook || '' %>" dir="ltr">
+            </div>
+            <div class="form-group">
+              <label for="instagram_url"><i class="fab fa-instagram" style="color:#E4405F;"></i> انستقرام</label>
+              <input type="url" name="instagram_url" id="instagram_url" class="form-control" value="<%= settings.instagram_url || settings.instagram || '' %>" dir="ltr">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="twitter_url"><i class="fab fa-twitter" style="color:#1DA1F2;"></i> تويتر</label>
+              <input type="url" name="twitter_url" id="twitter_url" class="form-control" value="<%= settings.twitter_url || settings.twitter || '' %>" dir="ltr">
+            </div>
+            <div class="form-group">
+              <label for="snapchat_url"><i class="fab fa-snapchat" style="color:#FFFC00;"></i> سناب شات</label>
+              <input type="url" name="snapchat_url" id="snapchat_url" class="form-control" value="<%= settings.snapchat_url || settings.snapchat || '' %>" dir="ltr">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tiktok_url"><i class="fab fa-tiktok"></i> تيك توك</label>
+              <input type="url" name="tiktok_url" id="tiktok_url" class="form-control" value="<%= settings.tiktok_url || settings.tiktok || '' %>" dir="ltr">
+            </div>
+            <div class="form-group">
+              <label for="linkedin_url"><i class="fab fa-linkedin" style="color:#0A66C2;"></i> لينكد إن</label>
+              <input type="url" name="linkedin_url" id="linkedin_url" class="form-control" value="<%= settings.linkedin_url || settings.linkedin || '' %>" dir="ltr">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="youtube_url"><i class="fab fa-youtube" style="color:#FF0000;"></i> يوتيوب</label>
+            <input type="url" name="youtube_url" id="youtube_url" class="form-control" value="<%= settings.youtube_url || settings.youtube || '' %>" dir="ltr">
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="form-card">
+        <div class="form-section">
+          <h3>الإحصائيات</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="years_experience">سنوات الخبرة</label>
+              <input type="number" name="years_experience" id="years_experience" class="form-control" value="<%= settings.years_experience || '' %>" min="0">
+            </div>
+            <div class="form-group">
+              <label for="cars_sold">سيارات تم بيعها</label>
+              <input type="number" name="cars_sold" id="cars_sold" class="form-control" value="<%= settings.cars_sold || '' %>" min="0">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="happy_clients">عملاء سعداء</label>
+              <input type="number" name="happy_clients" id="happy_clients" class="form-control" value="<%= settings.happy_clients || '' %>" min="0">
+            </div>
+            <div class="form-group">
+              <label for="total_brands">إجمالي العلامات</label>
+              <input type="number" name="total_brands" id="total_brands" class="form-control" value="<%= settings.total_brands || '' %>" min="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="margin-top:8px;"><i class="fas fa-save"></i> حفظ الإعدادات</button>
+    </form>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

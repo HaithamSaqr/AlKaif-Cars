@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head><%- include('../partials/head') %></head>
+<body>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash-messages') %>
+
+<!-- ========== HERO SECTION ========== -->
+<section class="hero">
+  <div class="hero-slider">
+    <% if (typeof heroSlides !== 'undefined' && heroSlides.length > 0) { %>
+      <% heroSlides.forEach(function(slide, index) { %>
+        <div class="hero-slide<%= index === 0 ? ' active' : '' %>">
+          <div class="hero-slide-bg hero-gradient-<%= (index % 12) + 1 %>" <% if (slide.bg_gradient) { %>style="background: <%= slide.bg_gradient %>;"<% } %>></div>
+          <div class="hero-brand-watermark"><%= slide.brand_watermark || '' %></div>
+          <div class="hero-content">
+            <% if (slide.tag) { %><span class="hero-tag"><%= slide.tag %></span><% } %>
+            <h1 class="hero-title"><%= slide.title %></h1>
+            <p class="hero-subtitle"><%= slide.subtitle || '' %></p>
+            <% if (slide.price) { %>
+              <div class="hero-price"><%= Number(slide.price).toLocaleString('ar-EG') %> <span>ر.س</span></div>
+            <% } %>
+            <a href="<%= slide.link_url || '/cars' %>" class="hero-cta">
+              <span><%= slide.link_text || 'اكتشف المزيد' %></span>
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </div>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+
+  <!-- Hero Navigation -->
+  <div class="hero-nav">
+    <button class="hero-arrow hero-prev" aria-label="السابق">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    <button class="hero-arrow hero-next" aria-label="التالي">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+  </div>
+
+  <div class="hero-dots">
+    <% if (typeof heroSlides !== 'undefined' && heroSlides.length > 0) { %>
+      <% heroSlides.forEach(function(slide, index) { %>
+        <button class="hero-dot<%= index === 0 ? ' active' : '' %>" data-slide="<%= index %>"></button>
+      <% }); %>
+    <% } %>
+  </div>
+</section>
+
+<!-- ========== SEARCH SECTION ========== -->
+<section class="search-section">
+  <div class="container">
+    <form action="/cars" method="GET" class="search-bar">
+      <div class="search-field">
+        <label for="search-brand">العلامة التجارية</label>
+        <select id="search-brand" name="brand">
+          <option value="">جميع العلامات</option>
+          <% if (typeof brands !== 'undefined' && brands.length > 0) { %>
+            <% brands.forEach(function(brand) { %>
+              <option value="<%= brand.slug %>"><%= brand.name_ar %></option>
+            <% }); %>
+          <% } %>
+        </select>
+      </div>
+
+      <div class="search-field">
+        <label for="search-model">الموديل</label>
+        <select id="search-model" name="year">
+          <option value="">جميع الموديلات</option>
+          <% for (var y = new Date().getFullYear() + 1; y >= 2015; y--) { %>
+            <option value="<%= y %>"><%= y %></option>
+          <% } %>
+        </select>
+      </div>
+
+      <div class="search-field">
+        <label for="search-name">اسم السيارة</label>
+        <input type="text" id="search-name" name="search" placeholder="اسم السيارة">
+      </div>
+
+      <button type="submit" class="search-btn">
+        <i class="fas fa-search"></i>
+        <span>ابحث</span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ========== ABOUT SECTION V2 ========== -->
+<section class="about-section-v2">
+  <div class="container">
+    <div class="about-v2-top">
+      <div class="about-v2-text">
+        <span class="section-tag">من نحن</span>
+        <h2 class="section-title">الكيف للسيارات</h2>
+        <p class="about-v2-desc">واحدة من أعرق وأكبر شركات السيارات في المملكة العربية السعودية. نقدم لعملائنا تشكيلة واسعة من أفخم وأحدث السيارات العالمية مع خدمات متكاملة تشمل البيع والشراء والتمويل والتأمين والصيانة.</p>
+        <a href="/about" class="about-v2-btn">
+          <span>اعرف المزيد</span>
+          <i class="fas fa-arrow-left"></i>
+        </a>
+      </div>
+      <div class="about-v2-stats">
+        <div class="about-v2-stat">
+          <div class="about-v2-stat-icon"><i class="fas fa-calendar-alt"></i></div>
+          <div class="about-v2-stat-info">
+            <span class="about-v2-stat-num">+<%= (typeof settings !== 'undefined' && settings.years_experience) ? settings.years_experience : '75' %></span>
+            <span class="about-v2-stat-label">سنة خبرة</span>
+          </div>
+        </div>
+        <div class="about-v2-stat">
+          <div class="about-v2-stat-icon"><i class="fas fa-car"></i></div>
+          <div class="about-v2-stat-info">
+            <span class="about-v2-stat-num">+<%= (typeof settings !== 'undefined' && settings.cars_sold) ? settings.cars_sold : '5000' %></span>
+            <span class="about-v2-stat-label">سيارة تم بيعها</span>
+          </div>
+        </div>
+        <div class="about-v2-stat">
+          <div class="about-v2-stat-icon"><i class="fas fa-users"></i></div>
+          <div class="about-v2-stat-info">
+            <span class="about-v2-stat-num">+<%= (typeof settings !== 'undefined' && settings.happy_clients) ? settings.happy_clients : '10K' %></span>
+            <span class="about-v2-stat-label">عميل سعيد</span>
+          </div>
+        </div>
+        <div class="about-v2-stat">
+          <div class="about-v2-stat-icon"><i class="fas fa-trophy"></i></div>
+          <div class="about-v2-stat-info">
+            <span class="about-v2-stat-num">+<%= (typeof settings !== 'undefined' && settings.total_brands) ? settings.total_brands : '60' %></span>
+            <span class="about-v2-stat-label">علامة تجارية</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-v2-features">
+      <div class="about-v2-feature">
+        <i class="fas fa-shield-alt"></i>
+        <h4>سيارات مفحوصة</h4>
+        <p>جميع السيارات معتمدة ومفحوصة بالكامل قبل البيع</p>
+      </div>
+      <div class="about-v2-feature">
+        <i class="fas fa-hand-holding-usd"></i>
+        <h4>تمويل ميسّر</h4>
+        <p>خيارات تمويل مرنة بالتعاون مع أفضل البنوك السعودية</p>
+      </div>
+      <div class="about-v2-feature">
+        <i class="fas fa-headset"></i>
+        <h4>دعم متواصل</h4>
+        <p>فريق دعم فني متخصص على مدار الساعة لخدمتكم</p>
+      </div>
+      <div class="about-v2-feature">
+        <i class="fas fa-certificate"></i>
+        <h4>ضمان شامل</h4>
+        <p>ضمان شامل على جميع السيارات الجديدة والمستعملة</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEATURED CARS ========== -->
+<section class="featured-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">جميع السيارات</h2>
+      <a href="/cars" class="section-link">
+        <span>عرض الكل</span>
+        <i class="fas fa-arrow-left"></i>
+      </a>
+    </div>
+
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <% if (typeof featuredCars !== 'undefined' && featuredCars.length > 0) { %>
+          <% featuredCars.forEach(function(car) { %>
+            <div class="swiper-slide">
+              <%- include('../partials/car-card', {car: car}) %>
+            </div>
+          <% }); %>
+        <% } %>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BRANDS SECTION ========== -->
+<section class="brands-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">العلامات التجارية</h2>
+      <a href="/brands" class="section-link">
+        <span>عرض الكل</span>
+        <i class="fas fa-arrow-left"></i>
+      </a>
+    </div>
+
+    <div class="brands-grid">
+      <% if (typeof brands !== 'undefined' && brands.length > 0) { %>
+        <% brands.forEach(function(brand) { %>
+          <a href="/cars?brand=<%= brand.slug %>" class="brand-card">
+            <div class="brand-icon">
+              <i class="fas fa-car-side"></i>
+            </div>
+            <span class="brand-name"><%= brand.name_ar %></span>
+          </a>
+        <% }); %>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PURCHASE CTA SECTION ========== -->
+<section class="purchase-cta-section">
+  <div class="container">
+    <div class="purchase-cta-box">
+      <h2>طلب شراء سيارة</h2>
+      <p>يمكنك تقديم طلب شراء سيارة أحلامك من خلال نموذج الطلب الخاص بنا. سواء كنت فردا تبحث عن سيارتك المثالية أو شركة ترغب في تجهيز أسطولها، فريقنا المتخصص جاهز لمساعدتك في العثور على أفضل العروض والخيارات المناسبة لاحتياجاتك.</p>
+      <div class="purchase-cta-buttons">
+        <a href="/purchase?type=individuals" class="purchase-btn purchase-btn-primary">
+          <i class="fas fa-user"></i>
+          <span>أفراد</span>
+        </a>
+        <a href="/purchase?type=corporate" class="purchase-btn purchase-btn-secondary">
+          <i class="fas fa-building"></i>
+          <span>شركات</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/share-modal') %>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

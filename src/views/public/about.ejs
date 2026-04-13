@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head><%- include('../partials/head') %></head>
+<body>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash-messages') %>
+
+<!-- ========== PAGE HEADER ========== -->
+<section class="page-header">
+  <div class="container">
+    <h1>من نحن</h1>
+    <div class="breadcrumb">
+      <a href="/">الرئيسية</a>
+      <span class="sep">/</span>
+      <span>من نحن</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ABOUT CONTENT ========== -->
+<section class="about-page-content">
+  <div class="container">
+
+    <!-- About Full Grid -->
+    <div class="about-full-grid">
+      <!-- Image Column -->
+      <div class="about-image">
+        <div style="width:100%;height:400px;background:linear-gradient(135deg,var(--bg-tertiary),var(--bg-secondary));border-radius:var(--radius-lg);"></div>
+        <div class="about-image-overlay">
+          <div class="number"><%= (typeof settings !== 'undefined' && settings.years_experience) ? settings.years_experience : '75' %>+</div>
+          <div class="label">سنة خبرة</div>
+        </div>
+      </div>
+
+      <!-- Text Column -->
+      <div class="about-text">
+        <span class="section-tag">تعرف علينا</span>
+        <h2 class="section-title">الكيف للسيارات.. ريادة في عالم السيارات</h2>
+        <p>
+          تأسست الكيف للسيارات لتكون واحدة من أبرز الشركات الرائدة في مجال استيراد وتصدير السيارات في المملكة العربية السعودية. منذ تأسيسها، حرصت الشركة على تقديم أفضل السيارات بأعلى معايير الجودة والموثوقية، لتلبي تطلعات عملائها في جميع أنحاء المملكة.
+        </p>
+        <p>
+          بخبرة تمتد لأكثر من <%= (typeof settings !== 'undefined' && settings.years_experience) ? settings.years_experience : '75' %> عاما في عالم السيارات، نفخر بإرث عريق من التميز والاحترافية في خدمة عملائنا. نلتزم بتوفير تجربة شراء استثنائية تجمع بين الأسعار التنافسية وخدمة العملاء المتميزة التي تضمن رضا العميل الكامل.
+        </p>
+
+        <div class="about-features">
+          <div class="about-feature">
+            <i class="fas fa-check"></i>
+            <span>استيراد وتصدير السيارات</span>
+          </div>
+          <div class="about-feature">
+            <i class="fas fa-check"></i>
+            <span>ضمان الجودة</span>
+          </div>
+          <div class="about-feature">
+            <i class="fas fa-check"></i>
+            <span>خدمة عملاء متميزة</span>
+          </div>
+          <div class="about-feature">
+            <i class="fas fa-check"></i>
+            <span>أسعار تنافسية</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Stats -->
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-number"><%= (typeof settings !== 'undefined' && settings.years_experience) ? settings.years_experience : '75' %>+</div>
+        <div class="stat-label">سنة خبرة</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number"><%= (typeof settings !== 'undefined' && settings.cars_sold) ? settings.cars_sold : '5000' %>+</div>
+        <div class="stat-label">سيارة تم بيعها</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number"><%= (typeof settings !== 'undefined' && settings.happy_clients) ? settings.happy_clients : '10000' %>+</div>
+        <div class="stat-label">عميل سعيد</div>
+      </div>
+    </div>
+
+    <!-- Values Section -->
+    <div class="section-header">
+      <div class="title-group">
+        <span class="section-tag">ما يميزنا</span>
+        <h2 class="section-title">قيمنا</h2>
+      </div>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <i class="fas fa-gem"></i>
+        <h3>الجودة</h3>
+        <p>نحرص على تقديم سيارات بأعلى معايير الجودة العالمية، مع فحص شامل لكل سيارة قبل عرضها للبيع لضمان رضا عملائنا.</p>
+      </div>
+      <div class="value-card">
+        <i class="fas fa-handshake"></i>
+        <h3>الثقة</h3>
+        <p>بنينا علاقات طويلة الأمد مع عملائنا قائمة على الشفافية والمصداقية في كل تعامل، مما جعلنا الخيار الأول للكثيرين.</p>
+      </div>
+      <div class="value-card">
+        <i class="fas fa-award"></i>
+        <h3>التميز</h3>
+        <p>نسعى دائما لتجاوز توقعات عملائنا من خلال تقديم خدمات استثنائية وحلول مبتكرة تناسب احتياجاتهم المتنوعة.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== TESTIMONIALS SECTION ========== -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="title-group">
+        <span class="section-tag">ماذا يقولون عنا</span>
+        <h2 class="section-title">آراء عملائنا</h2>
+      </div>
+    </div>
+
+    <div class="testimonials-grid">
+      <% if (typeof testimonials !== 'undefined' && testimonials.length > 0) { %>
+        <% testimonials.forEach(function(testimonial) { %>
+          <div class="testimonial-card">
+            <div class="stars">
+              <% var rating = testimonial.rating || 5; %>
+              <% for (var s = 1; s <= 5; s++) { %>
+                <% if (s <= rating) { %>
+                  <i class="fas fa-star"></i>
+                <% } else { %>
+                  <i class="far fa-star"></i>
+                <% } %>
+              <% } %>
+            </div>
+            <p><%= testimonial.content %></p>
+            <div class="testimonial-author">
+              <div class="avatar"><%= testimonial.name ? testimonial.name.charAt(0) : 'ع' %></div>
+              <div class="info">
+                <span class="name"><%= testimonial.name %></span>
+                <span class="role"><%= testimonial.role || 'عميل' %></span>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/share-modal') %>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="breadcrumbs">
+      <a href="/admin">لوحة التحكم</a> /
+      <a href="/admin/cars">السيارات</a> /
+      <span><%= car ? 'تعديل السيارة' : 'إضافة سيارة جديدة' %></span>
+    </div>
+
+    <h1><%= car ? 'تعديل السيارة' : 'إضافة سيارة جديدة' %></h1>
+
+    <form action="<%= car ? '/admin/cars/' + car.id + '/edit' : '/admin/cars/create' %>" method="POST" enctype="multipart/form-data" data-loading>
+      <div class="form-card">
+        <div class="form-section">
+          <h3>المعلومات الأساسية</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="brand_id">العلامة التجارية</label>
+              <select name="brand_id" id="brand_id" class="form-control" required>
+                <option value="">اختر العلامة</option>
+                <% if (brands && brands.length) { brands.forEach(function(b) { %>
+                  <option value="<%= b.id %>" <%= car && car.brand_id === b.id ? 'selected' : '' %>><%= b.name_ar || b.name_en %></option>
+                <% }); } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="year">سنة الصنع</label>
+              <input type="number" name="year" id="year" class="form-control" value="<%= car ? car.year : '' %>" min="1990" max="2030">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name_en">الاسم (إنجليزي)</label>
+              <input type="text" name="name_en" id="name_en" class="form-control" value="<%= car ? car.name_en : '' %>" required>
+            </div>
+            <div class="form-group">
+              <label for="name_ar">الاسم (عربي)</label>
+              <input type="text" name="name_ar" id="name_ar" class="form-control" value="<%= car ? car.name_ar : '' %>">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>السعر والحالة</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="price">السعر (ر.س)</label>
+              <input type="number" name="price" id="price" class="form-control" value="<%= car ? car.price : '' %>" step="0.01">
+            </div>
+            <div class="form-group">
+              <label for="condition">الحالة</label>
+              <select name="condition" id="condition" class="form-control">
+                <option value="new" <%= car && car.condition === 'new' ? 'selected' : '' %>>جديد</option>
+                <option value="used" <%= car && car.condition === 'used' ? 'selected' : '' %>>مستعمل</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" name="price_on_request" value="1" <%= car && car.price_on_request ? 'checked' : '' %>>
+              السعر عند الطلب
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>المواصفات الفنية</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="body_type">نوع الهيكل</label>
+              <select name="body_type" id="body_type" class="form-control">
+                <option value="">اختر</option>
+                <option value="sedan" <%= car && car.body_type === 'sedan' ? 'selected' : '' %>>سيدان</option>
+                <option value="suv" <%= car && car.body_type === 'suv' ? 'selected' : '' %>>SUV</option>
+                <option value="coupe" <%= car && car.body_type === 'coupe' ? 'selected' : '' %>>كوبيه</option>
+                <option value="hatchback" <%= car && car.body_type === 'hatchback' ? 'selected' : '' %>>هاتشباك</option>
+                <option value="truck" <%= car && car.body_type === 'truck' ? 'selected' : '' %>>شاحنة</option>
+                <option value="van" <%= car && car.body_type === 'van' ? 'selected' : '' %>>فان</option>
+                <option value="convertible" <%= car && car.body_type === 'convertible' ? 'selected' : '' %>>مكشوفة</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fuel_type">نوع الوقود</label>
+              <select name="fuel_type" id="fuel_type" class="form-control">
+                <option value="">اختر</option>
+                <option value="petrol" <%= car && car.fuel_type === 'petrol' ? 'selected' : '' %>>بنزين</option>
+                <option value="diesel" <%= car && car.fuel_type === 'diesel' ? 'selected' : '' %>>ديزل</option>
+                <option value="electric" <%= car && car.fuel_type === 'electric' ? 'selected' : '' %>>كهربائي</option>
+                <option value="hybrid" <%= car && car.fuel_type === 'hybrid' ? 'selected' : '' %>>هايبرد</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="transmission">ناقل الحركة</label>
+              <select name="transmission" id="transmission" class="form-control">
+                <option value="">اختر</option>
+                <option value="automatic" <%= car && car.transmission === 'automatic' ? 'selected' : '' %>>أوتوماتيك</option>
+                <option value="manual" <%= car && car.transmission === 'manual' ? 'selected' : '' %>>يدوي</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="drivetrain">نظام الدفع</label>
+              <input type="text" name="drivetrain" id="drivetrain" class="form-control" value="<%= car ? car.drivetrain : '' %>" placeholder="مثال: دفع رباعي">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mileage">المسافة المقطوعة (كم)</label>
+              <input type="number" name="mileage" id="mileage" class="form-control" value="<%= car ? car.mileage : '' %>">
+            </div>
+            <div class="form-group">
+              <label for="engine_size">حجم المحرك</label>
+              <input type="text" name="engine_size" id="engine_size" class="form-control" value="<%= car ? car.engine_size : '' %>" placeholder="مثال: 3.5L">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="horsepower">القوة الحصانية</label>
+              <input type="number" name="horsepower" id="horsepower" class="form-control" value="<%= car ? car.horsepower : '' %>">
+            </div>
+            <div class="form-group">
+              <label for="fuel_consumption">استهلاك الوقود</label>
+              <input type="text" name="fuel_consumption" id="fuel_consumption" class="form-control" value="<%= car ? car.fuel_consumption : '' %>" placeholder="مثال: 8.5 لتر/100كم">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>التفاصيل الإضافية</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="color_ar">اللون (عربي)</label>
+              <input type="text" name="color_ar" id="color_ar" class="form-control" value="<%= car ? car.color_ar : '' %>">
+            </div>
+            <div class="form-group">
+              <label for="color_en">اللون (إنجليزي)</label>
+              <input type="text" name="color_en" id="color_en" class="form-control" value="<%= car ? car.color_en : '' %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="seats_material">خامة المقاعد</label>
+            <input type="text" name="seats_material" id="seats_material" class="form-control" value="<%= car ? car.seats_material : '' %>" placeholder="مثال: جلد طبيعي">
+          </div>
+          <div class="form-group">
+            <label for="description_ar">الوصف</label>
+            <textarea name="description_ar" id="description_ar" class="form-control" rows="4"><%= car ? car.description_ar : '' %></textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>المميزات</h3>
+          <div class="form-group">
+            <label for="features">المميزات (سطر واحد لكل ميزة)</label>
+            <textarea name="features" id="features" class="form-control" rows="5" placeholder="كاميرا خلفية&#10;نظام ملاحة&#10;فتحة سقف"><% if (car && car.features && car.features.length) { car.features.forEach(function(f, i) { %><%= f.feature_text %><%= i < car.features.length - 1 ? '\n' : '' %><% }); } %></textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>الصور</h3>
+          <div class="form-group">
+            <div class="upload-area" data-input="carImages">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>اضغط لاختيار الصور أو اسحبها هنا</p>
+            </div>
+            <input type="file" name="images" id="carImages" multiple accept="image/*" data-preview="imagePreview" style="display:none;">
+            <div id="imagePreview" class="image-preview-grid"></div>
+          </div>
+
+          <% if (car && car.images && car.images.length > 0) { %>
+          <div style="margin-top:16px;">
+            <label style="color:var(--gray);font-weight:600;margin-bottom:8px;display:block;">الصور الحالية</label>
+            <div class="image-preview-grid">
+              <% car.images.forEach(function(img) { %>
+              <div class="image-preview-item">
+                <img src="<%= img.image_path %>" alt="<%= img.alt_text || '' %>">
+                <form action="/admin/cars/images/<%= img.id %>/delete" method="POST" style="display:inline;">
+                  <button type="submit" class="remove-img" onclick="return confirm('هل أنت متأكد من حذف هذه الصورة؟')" title="حذف الصورة"><i class="fas fa-times"></i></button>
+                </form>
+              </div>
+              <% }); %>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+        <div class="form-section">
+          <h3>خيارات إضافية</h3>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" name="is_featured" value="1" <%= car && car.is_featured ? 'checked' : '' %>>
+              سيارة مميزة
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:16px;">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> <%= car ? 'حفظ التعديلات' : 'إضافة السيارة' %></button>
+        <a href="/admin/cars" class="btn btn-outline">إلغاء</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

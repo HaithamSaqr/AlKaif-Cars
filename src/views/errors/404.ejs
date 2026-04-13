@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <section style="
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 20px 80px;
+  ">
+    <div>
+      <div style="
+        font-size: 140px;
+        font-weight: 900;
+        color: var(--red-primary, #E31E24);
+        line-height: 1;
+        margin-bottom: 16px;
+        text-shadow: 0 4px 30px rgba(227, 30, 36, 0.2);
+      ">404</div>
+      <h1 style="
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--white, #fff);
+        margin-bottom: 12px;
+      ">الصفحة غير موجودة</h1>
+      <p style="
+        font-size: 16px;
+        color: var(--gray-light, #B0B0B0);
+        margin-bottom: 36px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.8;
+      ">عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها إلى عنوان آخر.</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+        <a href="/" style="
+          display: inline-flex; align-items: center; gap: 10px;
+          background: var(--red-primary, #E31E24); color: #fff;
+          padding: 14px 32px; border-radius: 30px;
+          font-size: 16px; font-weight: 700;
+          transition: all 0.3s ease; text-decoration: none;
+        ">
+          <i class="fas fa-home"></i>
+          العودة للرئيسية
+        </a>
+        <a href="/cars" style="
+          display: inline-flex; align-items: center; gap: 10px;
+          background: transparent; color: #fff;
+          padding: 14px 32px; border-radius: 30px;
+          font-size: 16px; font-weight: 700;
+          border: 2px solid var(--border-color, #383838);
+          transition: all 0.3s ease; text-decoration: none;
+        ">
+          <i class="fas fa-car"></i>
+          تصفح السيارات
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <%- include('../partials/footer') %>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

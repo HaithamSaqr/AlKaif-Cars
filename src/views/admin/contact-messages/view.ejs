@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="breadcrumbs">
+      <a href="/admin">لوحة التحكم</a> /
+      <a href="/admin/contact-messages">الرسائل</a> /
+      <span>رسالة #<%= message.id %></span>
+    </div>
+
+    <div class="page-header">
+      <h1>تفاصيل الرسالة</h1>
+      <span class="badge badge-<%= message.is_read ? 'read' : 'unread' %>" style="font-size:14px;padding:6px 16px;">
+        <%= message.is_read ? 'مقروء' : 'جديد' %>
+      </span>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-row">
+        <div class="detail-label">الاسم</div>
+        <div class="detail-value"><%= message.name %></div>
+      </div>
+      <% if (message.email) { %>
+      <div class="detail-row">
+        <div class="detail-label">البريد الإلكتروني</div>
+        <div class="detail-value"><a href="mailto:<%= message.email %>"><%= message.email %></a></div>
+      </div>
+      <% } %>
+      <% if (message.phone) { %>
+      <div class="detail-row">
+        <div class="detail-label">الهاتف</div>
+        <div class="detail-value" dir="ltr"><%= message.phone %></div>
+      </div>
+      <% } %>
+      <% if (message.subject) { %>
+      <div class="detail-row">
+        <div class="detail-label">الموضوع</div>
+        <div class="detail-value"><%= message.subject %></div>
+      </div>
+      <% } %>
+      <div class="detail-row">
+        <div class="detail-label">الرسالة</div>
+        <div class="detail-value" style="white-space:pre-wrap;"><%= message.message %></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">تاريخ الإرسال</div>
+        <div class="detail-value"><%= message.created_at ? new Date(message.created_at).toLocaleString('ar-EG') : '---' %></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;">
+      <a href="/admin/contact-messages" class="btn btn-outline"><i class="fas fa-arrow-right"></i> رجوع للقائمة</a>
+      <form action="/admin/contact-messages/<%= message.id %>/delete" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من حذف هذه الرسالة؟')"><i class="fas fa-trash"></i> حذف الرسالة</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

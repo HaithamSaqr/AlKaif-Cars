@@ -1,0 +1,62 @@
+<button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+
+<aside class="admin-sidebar">
+  <a href="/admin" class="sidebar-logo">
+    <div class="logo-icon">K</div>
+    <div class="brand-text">
+      <span class="brand-name">الكيف للسيارات</span>
+      <span class="brand-sub">EL-KAIF CARS</span>
+    </div>
+  </a>
+
+  <nav class="sidebar-nav">
+    <a href="/admin" class="<%= typeof currentPath !== 'undefined' && currentPath === '/admin' ? 'active' : '' %>">
+      <i class="fas fa-tachometer-alt"></i> لوحة التحكم
+    </a>
+    <a href="/admin/cars" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin/cars') ? 'active' : '' %>">
+      <i class="fas fa-car"></i> السيارات
+    </a>
+    <a href="/admin/brands" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin/brands') ? 'active' : '' %>">
+      <i class="fas fa-tags"></i> العلامات التجارية
+    </a>
+    <a href="/admin/purchase-requests" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin/purchase-requests') ? 'active' : '' %>">
+      <i class="fas fa-file-alt"></i> طلبات الشراء
+      <% if (typeof newPurchaseRequests !== 'undefined' && newPurchaseRequests > 0) { %>
+        <span class="nav-badge"><%= newPurchaseRequests %></span>
+      <% } %>
+    </a>
+    <a href="/admin/contact-messages" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin/contact-messages') ? 'active' : '' %>">
+      <i class="fas fa-envelope"></i> الرسائل
+      <% if (typeof unreadMessages !== 'undefined' && unreadMessages > 0) { %>
+        <span class="nav-badge"><%= unreadMessages %></span>
+      <% } %>
+    </a>
+    <a href="/admin/hero-slides" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin/hero-slides') ? 'active' : '' %>">
+      <i class="fas fa-images"></i> السلايدر
+    </a>
+    <a href="/admin/testimonials" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin/testimonials') ? 'active' : '' %>">
+      <i class="fas fa-star"></i> الشهادات
+    </a>
+    <a href="/admin/branches" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin/branches') ? 'active' : '' %>">
+      <i class="fas fa-map-marker-alt"></i> الفروع
+    </a>
+    <% if (typeof session !== 'undefined' && session.userRole === 'admin') { %>
+    <a href="/admin/users" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin/users') ? 'active' : '' %>">
+      <i class="fas fa-users"></i> المستخدمين
+    </a>
+    <% } %>
+    <a href="/admin/settings" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin/settings') ? 'active' : '' %>">
+      <i class="fas fa-cog"></i> الإعدادات
+    </a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="user-avatar"><i class="fas fa-user"></i></div>
+    <div>
+      <div style="font-size:14px;color:#fff;font-weight:600;"><%= typeof session !== 'undefined' ? session.username : '' %></div>
+    </div>
+    <form action="/admin/logout" method="POST" style="margin-right:auto;">
+      <button type="submit" class="btn btn-sm btn-outline" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></button>
+    </form>
+  </div>
+</aside>

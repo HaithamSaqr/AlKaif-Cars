@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <%- include('../partials/admin-head') %>
+</head>
+<body>
+  <%- include('../partials/admin-sidebar') %>
+
+  <div class="admin-main">
+    <%- include('../partials/flash-messages') %>
+
+    <div class="page-header">
+      <h1>إدارة الفروع</h1>
+      <a href="/admin/branches/create" class="btn btn-primary"><i class="fas fa-plus"></i> إضافة فرع</a>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>الاسم</th>
+            <th>المدينة</th>
+            <th>الهاتف</th>
+            <th>الحالة</th>
+            <th>الترتيب</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (branches && branches.length > 0) { %>
+            <% branches.forEach(function(branch) { %>
+            <tr>
+              <td><%= branch.name %></td>
+              <td><%= branch.city || '---' %></td>
+              <td dir="ltr"><%= branch.phone || '---' %></td>
+              <td>
+                <span class="badge badge-<%= branch.is_active ? 'green' : 'gray' %>">
+                  <%= branch.is_active ? 'مفعل' : 'معطل' %>
+                </span>
+              </td>
+              <td><%= branch.sort_order %></td>
+              <td>
+                <div class="table-actions">
+                  <a href="/admin/branches/<%= branch.id %>/edit" class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></a>
+                  <form action="/admin/branches/<%= branch.id %>/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('هل أنت متأكد من الحذف؟')"><i class="fas fa-trash"></i></button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="6" style="text-align:center;color:var(--gray);padding:32px;">لا توجد فروع</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head><%- include('../partials/head') %></head>
+<body>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash-messages') %>
+
+<!-- ========== PAGE HEADER ========== -->
+<section class="page-header">
+  <div class="container">
+    <h1>جميع السيارات</h1>
+    <div class="breadcrumb">
+      <a href="/">الرئيسية</a>
+      <span class="sep">/</span>
+      <span>السيارات</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CARS LAYOUT ========== -->
+<section class="cars-section">
+  <div class="container">
+    <div class="cars-layout">
+
+      <!-- FILTER SIDEBAR -->
+      <aside class="filter-sidebar">
+        <form action="/cars" method="GET" id="filterForm">
+          <div class="filter-header">
+            <h3><i class="fas fa-sliders"></i> تصفية البحث</h3>
+            <a href="/cars" class="filter-reset">مسح الكل</a>
+          </div>
+
+          <!-- Price Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              السعر
+              <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="filter-group-content">
+              <div class="price-range-display">
+                <span>0 ر.س</span>
+                <span><%= typeof maxPrice !== 'undefined' ? Number(maxPrice).toLocaleString('ar-EG') : '0' %> ر.س</span>
+              </div>
+              <input type="range" class="range-slider" name="max_price" min="0" max="<%= typeof maxPrice !== 'undefined' ? maxPrice : 5000000 %>" value="<%= (typeof filters !== 'undefined' && filters.max_price) ? filters.max_price : (typeof maxPrice !== 'undefined' ? maxPrice : 5000000) %>" step="10000">
+            </div>
+          </div>
+
+          <!-- Brand Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              العلامة التجارية
+              <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="filter-group-content">
+              <div class="filter-checkboxes">
+                <% if (typeof brandsWithCount !== 'undefined' && brandsWithCount.length > 0) { %>
+                  <% brandsWithCount.forEach(function(brand) { %>
+                    <label class="filter-checkbox">
+                      <input type="checkbox" name="brand" value="<%= brand.id %>" <%= (typeof filters !== 'undefined' && filters.brand && String(filters.brand) === String(brand.id)) ? 'checked' : '' %>>
+                      <span class="checkmark"></span>
+                      <span class="label-text"><%= brand.name_ar %></span>
+                      <span class="count"><%= brand.car_count || 0 %></span>
+                    </label>
+                  <% }); %>
+                <% } %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Body Type Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              نوع السيارة
+              <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="filter-group-content">
+              <div class="filter-checkboxes">
+                <% var bodyTypes = ['سيدان', 'SUV', 'هاتشباك', 'عائلية', 'تجارية']; %>
+                <% bodyTypes.forEach(function(type) { %>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="body_type" value="<%= type %>" <%= (typeof filters !== 'undefined' && filters.body_type && filters.body_type === type) ? 'checked' : '' %>>
+                    <span class="checkmark"></span>
+                    <span class="label-text"><%= type %></span>
+                  </label>
+                <% }); %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Condition Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              الحالة
+              <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="filter-group-content">
+              <div class="filter-checkboxes">
+                <label class="filter-checkbox">
+                  <input type="checkbox" name="condition" value="new" <%= (typeof filters !== 'undefined' && filters.condition === 'new') ? 'checked' : '' %>>
+                  <span class="checkmark"></span>
+                  <span class="label-text">جديد</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox" name="condition" value="used" <%= (typeof filters !== 'undefined' && filters.condition === 'used') ? 'checked' : '' %>>
+                  <span class="checkmark"></span>
+                  <span class="label-text">مستعمل</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="filter-apply-btn">تطبيق الفلتر</button>
+        </form>
+      </aside>
+
+      <!-- CAR GRID -->
+      <div class="cars-grid-wrapper">
+        <% if (typeof cars !== 'undefined' && cars.length > 0) { %>
+          <div class="cars-grid">
+            <% cars.forEach(function(car) { %>
+              <%- include('../partials/car-card', {car: car}) %>
+            <% }); %>
+          </div>
+
+          <!-- Pagination -->
+          <% if (typeof pages !== 'undefined' && pages > 1) { %>
+            <%
+              var paginationBaseUrl = '/cars?';
+              var qParts = [];
+              if (typeof filters !== 'undefined') {
+                if (filters.brand) qParts.push('brand=' + filters.brand);
+                if (filters.condition) qParts.push('condition=' + filters.condition);
+                if (filters.body_type) qParts.push('body_type=' + filters.body_type);
+                if (filters.max_price) qParts.push('max_price=' + filters.max_price);
+                if (filters.search) qParts.push('search=' + encodeURIComponent(filters.search));
+                if (filters.year) qParts.push('year=' + filters.year);
+              }
+              paginationBaseUrl += qParts.join('&');
+            %>
+            <%- include('../partials/pagination', { currentPage: currentPage, totalPages: pages, baseUrl: paginationBaseUrl }) %>
+          <% } %>
+
+        <% } else { %>
+          <div class="no-results">
+            <i class="fas fa-car" style="font-size:48px;color:var(--gray-mid);margin-bottom:16px;"></i>
+            <h3>لا توجد سيارات مطابقة</h3>
+            <p>جرب تعديل معايير البحث أو <a href="/cars">عرض جميع السيارات</a></p>
+          </div>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/share-modal') %>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>
