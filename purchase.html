@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الكيف للسيارات | طلب شراء</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 RTL -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.rtl.min.css">
+
+  <!-- Font Awesome 6.7 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Swiper 11 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">
+        <div class="logo-icon">K</div>
+        <div class="brand-text">
+          <span class="brand-name">الكيف للسيارات</span>
+          <span class="brand-sub">EL-KAIF CARS</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="active">الرئيسية</a>
+        <a href="cars.html">السيارات</a>
+        <a href="about.html">من نحن</a>
+        <a href="contact.html">اتصل بنا</a>
+        <a href="purchase.html">طلب شراء</a>
+      </div>
+
+      <div class="nav-utils">
+        <div class="nav-search">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="ابحث عن سيارة...">
+        </div>
+        <a href="#" class="nav-icon-btn" style="position:relative;">
+          <i class="fas fa-heart"></i>
+          <span class="badge">0</span>
+        </a>
+      </div>
+
+      <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================
+       PAGE HEADER
+       ============================================ -->
+  <section class="page-header">
+    <div class="container">
+      <h1>طلب شراء</h1>
+      <div class="breadcrumb">
+        <a href="index.html">الرئيسية</a>
+        <span class="sep">/</span>
+        <span>طلب شراء</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       PURCHASE FORM
+       ============================================ -->
+  <section class="purchase-section">
+    <div class="container">
+      <div class="purchase-form-container">
+
+        <!-- Tabs -->
+        <div class="purchase-tabs">
+          <button class="purchase-tab active" data-tab="individuals">أفراد</button>
+          <button class="purchase-tab" data-tab="corporate">شركات</button>
+        </div>
+
+        <!-- ====== TAB 1: Individuals ====== -->
+        <div id="individuals" class="tab-content active">
+          <div class="purchase-form-box">
+            <form id="individualsForm" novalidate>
+
+              <!-- طريقة الدفع -->
+              <div class="form-group">
+                <label>طريقة الدفع</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="payment_method" value="تمويل" checked>
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">تمويل</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="payment_method" value="كاش">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">كاش</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- السيارة المطلوبة -->
+              <div class="form-group">
+                <label for="ind-car">السيارة المطلوبة</label>
+                <select id="ind-car" name="car" required>
+                  <option value="" disabled selected>اختر السيارة</option>
+                  <option value="BMW 740i 2026">BMW 740i 2026</option>
+                  <option value="Mercedes S500 2025">Mercedes S500 2025</option>
+                  <option value="Toyota Land Cruiser 2026">Toyota Land Cruiser 2026</option>
+                  <option value="Lexus LX 600 2025">Lexus LX 600 2025</option>
+                  <option value="Porsche Cayenne 2025">Porsche Cayenne 2025</option>
+                  <option value="Cadillac Escalade 2025">Cadillac Escalade 2025</option>
+                  <option value="GMC Yukon 2024">GMC Yukon 2024</option>
+                  <option value="Range Rover 2024">Range Rover 2024</option>
+                  <option value="Audi Q7 2025">Audi Q7 2025</option>
+                  <option value="Nissan Patrol 2026">Nissan Patrol 2026</option>
+                  <option value="BMW 735i 2026">BMW 735i 2026</option>
+                  <option value="Mercedes CLA 200">Mercedes CLA 200</option>
+                  <option value="Mazda 3 2026">Mazda 3 2026</option>
+                  <option value="Hyundai Tucson 2026">Hyundai Tucson 2026</option>
+                  <option value="Skoda Kodiaq 2026">Skoda Kodiaq 2026</option>
+                  <option value="Toyota Prado 2026">Toyota Prado 2026</option>
+                  <option value="Kia Sportage 2026">Kia Sportage 2026</option>
+                  <option value="Tesla Model Y 2025">Tesla Model Y 2025</option>
+                  <option value="Ferrari Purosangue 2024">Ferrari Purosangue 2024</option>
+                  <option value="Rolls Royce Spectre 2024">Rolls Royce Spectre 2024</option>
+                </select>
+              </div>
+
+              <!-- السعر -->
+              <div class="form-group">
+                <label for="ind-price">السعر</label>
+                <input type="text" id="ind-price" name="price" placeholder="أدخل السعر المتوقع">
+              </div>
+
+              <!-- الاسم + رقم الجوال -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="ind-name">الاسم الكامل</label>
+                  <input type="text" id="ind-name" name="full_name" placeholder="أدخل اسمك الكامل" required>
+                </div>
+                <div class="form-group">
+                  <label for="ind-phone">رقم الجوال</label>
+                  <input type="text" id="ind-phone" name="phone" placeholder="05XXXXXXXX" required>
+                </div>
+              </div>
+
+              <!-- الراتب -->
+              <div class="form-group">
+                <label for="ind-salary">الراتب على جهاز الصراف</label>
+                <input type="text" id="ind-salary" name="salary" placeholder="أدخل مبلغ الراتب">
+              </div>
+
+              <!-- إجمالي الالتزامات -->
+              <div class="form-group">
+                <label for="ind-obligations">إجمالي الالتزامات</label>
+                <input type="text" id="ind-obligations" name="obligations" placeholder="أدخل إجمالي الالتزامات الشهرية">
+              </div>
+
+              <!-- قرض عقاري -->
+              <div class="form-group">
+                <label>هل يوجد قرض عقاري؟</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="mortgage" value="نعم">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">نعم</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="mortgage" value="لا">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">لا</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- الدفعة الأولى -->
+              <div class="form-group">
+                <label>الدفعة الأولى</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="first_payment" value="10%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">10%</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="first_payment" value="15%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">15%</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="first_payment" value="20%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">20%</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="first_payment" value="25%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">25%</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- الدفعة الأخيرة -->
+              <div class="form-group">
+                <label>الدفعة الأخيرة</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="last_payment" value="25%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">25%</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="last_payment" value="30%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">30%</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="last_payment" value="35%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">35%</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="last_payment" value="40%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">40%</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="last_payment" value="45%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">45%</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="last_payment" value="50%">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">50%</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- المدينة -->
+              <div class="form-group">
+                <label for="ind-city">المدينة</label>
+                <select id="ind-city" name="city" required>
+                  <option value="" disabled selected>اختر المدينة</option>
+                  <option value="الرياض">الرياض</option>
+                  <option value="جدة">جدة</option>
+                  <option value="مكة المكرمة">مكة المكرمة</option>
+                  <option value="المدينة المنورة">المدينة المنورة</option>
+                  <option value="الدمام">الدمام</option>
+                  <option value="الخبر">الخبر</option>
+                  <option value="الظهران">الظهران</option>
+                  <option value="أبها">أبها</option>
+                  <option value="تبوك">تبوك</option>
+                  <option value="حائل">حائل</option>
+                  <option value="الطائف">الطائف</option>
+                  <option value="بريدة">بريدة</option>
+                  <option value="نجران">نجران</option>
+                  <option value="جازان">جازان</option>
+                  <option value="ينبع">ينبع</option>
+                </select>
+              </div>
+
+              <!-- قطاع التوظيف -->
+              <div class="form-group">
+                <label for="ind-sector">قطاع التوظيف</label>
+                <select id="ind-sector" name="employment_sector" required>
+                  <option value="" disabled selected>اختر القطاع</option>
+                  <option value="حكومي">حكومي</option>
+                  <option value="عسكري">عسكري</option>
+                  <option value="قطاع خاص">قطاع خاص</option>
+                  <option value="شبه حكومي">شبه حكومي</option>
+                  <option value="أعمال حرة">أعمال حرة</option>
+                </select>
+              </div>
+
+              <!-- بنك الراتب -->
+              <div class="form-group">
+                <label for="ind-bank">بنك الراتب</label>
+                <select id="ind-bank" name="bank" required>
+                  <option value="" disabled selected>اختر البنك</option>
+                  <option value="الراجحي">الراجحي</option>
+                  <option value="الأهلي">الأهلي</option>
+                  <option value="الإنماء">الإنماء</option>
+                  <option value="البلاد">البلاد</option>
+                  <option value="الرياض">الرياض</option>
+                  <option value="ساب">ساب</option>
+                  <option value="العربي">العربي</option>
+                </select>
+              </div>
+
+              <!-- رخصة القيادة -->
+              <div class="form-group">
+                <label>رخصة القيادة</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="license" value="سارية">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">سارية</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="license" value="منتهية">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">منتهية</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="license" value="غير متوفرة">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">غير متوفرة</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit" class="form-submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                إرسال الطلب
+              </button>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- ====== TAB 2: Corporate ====== -->
+        <div id="corporate" class="tab-content">
+          <div class="purchase-form-box">
+            <form id="corporateForm" novalidate>
+
+              <!-- اسم الشركة -->
+              <div class="form-group">
+                <label for="corp-name">اسم الشركة</label>
+                <input type="text" id="corp-name" name="company_name" placeholder="أدخل اسم الشركة" required>
+              </div>
+
+              <!-- البريد الإلكتروني -->
+              <div class="form-group">
+                <label for="corp-email">البريد الإلكتروني الرسمي</label>
+                <input type="email" id="corp-email" name="email" placeholder="info@company.com" required>
+              </div>
+
+              <!-- اسم المدير + رقم الجوال -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="corp-ceo">اسم المدير التنفيذي</label>
+                  <input type="text" id="corp-ceo" name="ceo_name" placeholder="أدخل اسم المدير التنفيذي" required>
+                </div>
+                <div class="form-group">
+                  <label for="corp-phone">رقم الجوال</label>
+                  <input type="text" id="corp-phone" name="phone" placeholder="05XXXXXXXX" required>
+                </div>
+              </div>
+
+              <!-- المقر الرئيسي -->
+              <div class="form-group">
+                <label for="corp-hq">المقر الرئيسي</label>
+                <input type="text" id="corp-hq" name="headquarters" placeholder="عنوان المقر الرئيسي">
+              </div>
+
+              <!-- النشاط التجاري -->
+              <div class="form-group">
+                <label for="corp-activity">النشاط التجاري</label>
+                <input type="text" id="corp-activity" name="business_activity" placeholder="نوع النشاط التجاري">
+              </div>
+
+              <!-- عمر الشركة -->
+              <div class="form-group">
+                <label for="corp-age">عمر الشركة</label>
+                <input type="text" id="corp-age" name="company_age" placeholder="عدد سنوات التأسيس">
+              </div>
+
+              <!-- السيارة المطلوبة -->
+              <div class="form-group">
+                <label for="corp-car">السيارة المطلوبة</label>
+                <select id="corp-car" name="car" required>
+                  <option value="" disabled selected>اختر السيارة</option>
+                  <option value="BMW 740i 2026">BMW 740i 2026</option>
+                  <option value="Mercedes S500 2025">Mercedes S500 2025</option>
+                  <option value="Toyota Land Cruiser 2026">Toyota Land Cruiser 2026</option>
+                  <option value="Lexus LX 600 2025">Lexus LX 600 2025</option>
+                  <option value="Porsche Cayenne 2025">Porsche Cayenne 2025</option>
+                  <option value="Cadillac Escalade 2025">Cadillac Escalade 2025</option>
+                  <option value="GMC Yukon 2024">GMC Yukon 2024</option>
+                  <option value="Range Rover 2024">Range Rover 2024</option>
+                  <option value="Audi Q7 2025">Audi Q7 2025</option>
+                  <option value="Nissan Patrol 2026">Nissan Patrol 2026</option>
+                  <option value="BMW 735i 2026">BMW 735i 2026</option>
+                  <option value="Mercedes CLA 200">Mercedes CLA 200</option>
+                  <option value="Mazda 3 2026">Mazda 3 2026</option>
+                  <option value="Hyundai Tucson 2026">Hyundai Tucson 2026</option>
+                  <option value="Skoda Kodiaq 2026">Skoda Kodiaq 2026</option>
+                  <option value="Toyota Prado 2026">Toyota Prado 2026</option>
+                  <option value="Kia Sportage 2026">Kia Sportage 2026</option>
+                  <option value="Tesla Model Y 2025">Tesla Model Y 2025</option>
+                  <option value="Ferrari Purosangue 2024">Ferrari Purosangue 2024</option>
+                  <option value="Rolls Royce Spectre 2024">Rolls Royce Spectre 2024</option>
+                </select>
+              </div>
+
+              <!-- طريقة الدفع -->
+              <div class="form-group">
+                <label>طريقة الدفع</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="corp_payment_method" value="تمويل">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">تمويل</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="corp_payment_method" value="كاش">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">كاش</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- بنك الراتب -->
+              <div class="form-group">
+                <label for="corp-bank">بنك الراتب</label>
+                <select id="corp-bank" name="bank" required>
+                  <option value="" disabled selected>اختر البنك</option>
+                  <option value="الراجحي">الراجحي</option>
+                  <option value="الأهلي">الأهلي</option>
+                  <option value="الإنماء">الإنماء</option>
+                  <option value="البلاد">البلاد</option>
+                  <option value="الرياض">الرياض</option>
+                  <option value="ساب">ساب</option>
+                  <option value="العربي">العربي</option>
+                </select>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit" class="form-submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                إرسال الطلب
+              </button>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand">
+            <div class="logo-icon">K</div>
+            <div class="brand-text">
+              <span class="brand-name">الكيف للسيارات</span>
+              <span class="brand-sub">EL-KAIF CARS</span>
+            </div>
+          </a>
+          <p>وكيلك الموثوق في عالم السيارات. نوفر لك أفضل السيارات الجديدة والمستعملة بأسعار منافسة وخدمات تمويل مرنة.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="cars.html">السيارات</a></li>
+            <li><a href="about.html">من نحن</a></li>
+            <li><a href="contact.html">اتصل بنا</a></li>
+            <li><a href="purchase.html">طلب شراء</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="footer-col">
+          <h4>خدماتنا</h4>
+          <ul>
+            <li><a href="#">سيارات جديدة</a></li>
+            <li><a href="#">سيارات مستعملة</a></li>
+            <li><a href="#">التمويل</a></li>
+            <li><a href="#">التأمين</a></li>
+            <li><a href="#">الصيانة</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-col">
+          <h4>تواصل معنا</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="info">
+              <span>العنوان</span>
+              <p>الرياض، المملكة العربية السعودية</p>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone"></i>
+            <div class="info">
+              <span>الهاتف</span>
+              <a href="tel:+966500000000">+966 50 000 0000</a>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i>
+            <div class="info">
+              <span>البريد الإلكتروني</span>
+              <a href="mailto:info@elkaifcars.com">info@elkaifcars.com</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة &copy; 2026 <a href="index.html">الكيف للسيارات</a></p>
+        <p>تصميم وتطوير بعناية</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================
+       SHARE MODAL
+       ============================================ -->
+  <div class="share-modal-overlay">
+    <div class="share-modal">
+      <button class="share-modal-close"><i class="fas fa-times"></i></button>
+      <h3>مشاركة</h3>
+      <div class="share-options">
+        <a href="#" class="share-option twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="share-option facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="share-option whatsapp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="share-url-box">
+        <input type="text" class="share-url-input" readonly>
+        <button class="copy-url-btn">نسخ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

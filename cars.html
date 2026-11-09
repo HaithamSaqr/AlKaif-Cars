@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الكيف للسيارات | السيارات</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 RTL -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+
+  <!-- Font Awesome 6.7 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+  <!-- Swiper 11 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">
+        <div class="logo-icon">EK</div>
+        <div class="brand-text">
+          <span class="brand-name">الكيف للسيارات</span>
+          <span class="brand-sub">EL-KAIF CARS</span>
+        </div>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">الرئيسية</a>
+        <a href="cars.html" class="active">السيارات</a>
+        <a href="about.html">من نحن</a>
+        <a href="purchase.html">طلب شراء</a>
+        <a href="contact.html">اتصل بنا</a>
+      </div>
+
+      <div class="nav-utils">
+        <div class="nav-search">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="ابحث عن سيارة...">
+        </div>
+        <button class="nav-icon-btn" style="position:relative;" onclick="document.getElementById('shareModal').classList.add('show')">
+          <i class="fas fa-share-nodes"></i>
+        </button>
+        <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================
+       PAGE HEADER
+       ============================================ -->
+  <section class="page-header">
+    <div class="container">
+      <h1>جميع السيارات</h1>
+      <div class="breadcrumb">
+        <a href="index.html">الرئيسية</a>
+        <span class="sep">/</span>
+        <span>السيارات</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       CARS LAYOUT
+       ============================================ -->
+  <section class="cars-section">
+    <div class="container">
+      <div class="cars-layout">
+
+        <!-- FILTER SIDEBAR -->
+        <aside class="filter-sidebar">
+          <div class="filter-header">
+            <h3><i class="fas fa-sliders"></i> تصفية البحث</h3>
+            <button class="filter-reset">مسح الكل</button>
+          </div>
+
+          <!-- Price Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              السعر
+              <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="filter-group-content">
+              <div class="price-range-display">
+                <span>0 ر.س</span>
+                <span>3,600,000 ر.س</span>
+              </div>
+              <input type="range" class="range-slider" min="0" max="3600000" value="3600000" step="10000">
+            </div>
+          </div>
+
+          <!-- Brand Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              العلامة التجارية
+              <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="filter-group-content">
+              <div class="filter-checkboxes">
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">مرسيدس</span>
+                  <span class="count">24</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">بي ام دبليو</span>
+                  <span class="count">18</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">تويوتا</span>
+                  <span class="count">15</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">لكزس</span>
+                  <span class="count">12</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">بورشه</span>
+                  <span class="count">8</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">نيسان</span>
+                  <span class="count">10</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">جي ام سي</span>
+                  <span class="count">7</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">كاديلاك</span>
+                  <span class="count">5</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">أودي</span>
+                  <span class="count">9</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">هيونداي</span>
+                  <span class="count">6</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Car Style Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              نوع السيارة
+              <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="filter-group-content">
+              <div class="filter-checkboxes">
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">سيدان</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">دفع رباعي (SUV)</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">هاتشباك</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">عائلية</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">تجارية</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Condition Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              الحالة
+              <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="filter-group-content">
+              <div class="filter-checkboxes">
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">جديد</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                  <span class="label-text">مستعمل</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button class="filter-apply-btn">تطبيق الفلتر</button>
+        </aside>
+
+        <!-- CAR GRID -->
+        <div class="cars-grid-wrapper">
+          <div class="cars-grid">
+
+            <!-- Car 1: Cadillac Escalade 2025 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">كاديلاك</div>
+                <h3 class="car-card-name">Cadillac Escalade</h3>
+                <div class="car-card-year">2025 - SUV</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price on-request">متوفر عند الطلب</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 2: Mazda 3 2026 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#2d132c,#801336,#c72c41);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">مازدا</div>
+                <h3 class="car-card-name">Mazda 3</h3>
+                <div class="car-card-year">2026 - سيدان</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 108,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 3: BMW 740i 2026 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#0c0c1d,#1b1b3a,#2e2e5c);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">بي ام دبليو</div>
+                <h3 class="car-card-name">BMW 740i</h3>
+                <div class="car-card-year">2026 - سيدان</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 510,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 4: BMW 735i 2026 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#141e30,#243b55,#1a3a5c);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">بي ام دبليو</div>
+                <h3 class="car-card-name">BMW 735i</h3>
+                <div class="car-card-year">2026 - سيدان</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 469,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 5: GMC Yukon Denali 2024 (Used) -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a1a,#2c3e50,#34495e);"></div>
+                <span class="car-card-badge used">مستعمل</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">جي ام سي</div>
+                <h3 class="car-card-name">GMC Yukon Denali</h3>
+                <div class="car-card-year">2024 - SUV</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 48,159 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 320,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 6: Nissan Patrol SE Platinum 2026 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#232526,#414345,#2c3e50);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">نيسان</div>
+                <h3 class="car-card-name">Nissan Patrol SE Platinum</h3>
+                <div class="car-card-year">2026 - SUV</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 335,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 7: Toyota Prado TXL3 2026 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">تويوتا</div>
+                <h3 class="car-card-name">Toyota Prado TXL3</h3>
+                <div class="car-card-year">2026 - SUV</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 245,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 8: Mercedes CLA 200 2022 (Used) -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#200122,#6f0000,#3a0000);"></div>
+                <span class="car-card-badge used">مستعمل</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">مرسيدس</div>
+                <h3 class="car-card-name">Mercedes CLA 200</h3>
+                <div class="car-card-year">2022 - سيدان</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 32,000 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 185,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 9: Audi Q7 55 TFSI 2025 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#1c1c2d,#3a3a5c,#25254a);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">أودي</div>
+                <h3 class="car-card-name">Audi Q7 55 TFSI</h3>
+                <div class="car-card-year">2025 - SUV</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 380,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 10: Skoda Kodiaq 2026 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#0d1b2a,#1b2838,#2a4a5e);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">سكودا</div>
+                <h3 class="car-card-name">Skoda Kodiaq</h3>
+                <div class="car-card-year">2026 - SUV</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 125,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 11: Lexus LX 600 2025 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0a0a,#3d1c1c,#5c2a2a);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">لكزس</div>
+                <h3 class="car-card-name">Lexus LX 600</h3>
+                <div class="car-card-year">2025 - SUV</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 420,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+            <!-- Car 12: Hyundai Tucson 2026 -->
+            <a href="car-detail.html" class="car-card">
+              <div class="car-card-img">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a2a1a,#2d4a2d,#1e3a1e);"></div>
+                <span class="car-card-badge new">جديد</span>
+                <div class="car-card-actions">
+                  <button class="car-card-action-btn" onclick="event.preventDefault();this.classList.toggle('liked')"><i class="fas fa-heart"></i></button>
+                  <button class="car-card-action-btn" onclick="event.preventDefault();document.getElementById('shareModal').classList.add('show')"><i class="fas fa-share-nodes"></i></button>
+                </div>
+              </div>
+              <div class="car-card-body">
+                <div class="car-card-brand">هيونداي</div>
+                <h3 class="car-card-name">Hyundai Tucson</h3>
+                <div class="car-card-year">2026 - SUV</div>
+                <div class="car-card-specs">
+                  <span class="car-card-spec"><i class="fas fa-gas-pump"></i> بنزين</span>
+                  <span class="car-card-spec"><i class="fas fa-gear"></i> أوتوماتيك</span>
+                  <span class="car-card-spec"><i class="fas fa-gauge-high"></i> 0 كم</span>
+                </div>
+              </div>
+              <div class="car-card-footer">
+                <div class="car-card-price"><span class="currency">ر.س</span> 115,000</div>
+                <span class="car-card-detail-btn">التفاصيل</span>
+              </div>
+            </a>
+
+          </div>
+
+          <!-- Load More -->
+          <div class="load-more">
+            <button class="load-more-btn">
+              عرض المزيد
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand">
+            <div class="logo-icon">EK</div>
+            <div class="brand-text">
+              <span class="brand-name">الكيف للسيارات</span>
+              <span class="brand-sub">EL-KAIF CARS</span>
+            </div>
+          </a>
+          <p>وكالة سيارات متخصصة في بيع وشراء السيارات الجديدة والمستعملة بأفضل الأسعار وأعلى معايير الجودة والثقة.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="cars.html">جميع السيارات</a></li>
+            <li><a href="about.html">من نحن</a></li>
+            <li><a href="purchase.html">طلب شراء</a></li>
+            <li><a href="contact.html">اتصل بنا</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>خدماتنا</h4>
+          <ul>
+            <li><a href="#">بيع السيارات</a></li>
+            <li><a href="#">شراء السيارات</a></li>
+            <li><a href="#">تمويل السيارات</a></li>
+            <li><a href="#">فحص السيارات</a></li>
+            <li><a href="#">تأمين السيارات</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>تواصل معنا</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-location-dot"></i>
+            <div class="info">
+              <span>العنوان</span>
+              <p>الرياض، المملكة العربية السعودية</p>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone"></i>
+            <div class="info">
+              <span>الهاتف</span>
+              <a href="tel:+966500000000">+966 50 000 0000</a>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i>
+            <div class="info">
+              <span>البريد الإلكتروني</span>
+              <a href="mailto:info@elkaifcars.com">info@elkaifcars.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة &copy; 2025 الكيف للسيارات</p>
+        <p>تصميم وتطوير بواسطة <a href="#">فريق الكيف</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================
+       SHARE MODAL
+       ============================================ -->
+  <div class="share-modal-overlay" id="shareModal" onclick="if(event.target===this)this.classList.remove('show')">
+    <div class="share-modal" style="position:relative;">
+      <button class="share-modal-close" onclick="document.getElementById('shareModal').classList.remove('show')">
+        <i class="fas fa-times"></i>
+      </button>
+      <h3>مشاركة الصفحة</h3>
+      <div class="share-options">
+        <a href="#" class="share-option twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="share-option facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="share-option whatsapp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="share-url-box">
+        <input type="text" value="https://elkaifcars.com/cars" readonly id="shareUrl">
+        <button onclick="navigator.clipboard.writeText(document.getElementById('shareUrl').value)">نسخ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('mobile-open');
+      document.getElementById('menuToggle').classList.toggle('active');
+    }
+
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Filter Group Toggle
+    document.querySelectorAll('.filter-group-title').forEach(title => {
+      title.addEventListener('click', function() {
+        this.classList.toggle('collapsed');
+        const content = this.nextElementSibling;
+        if (content) {
+          content.style.display = content.style.display === 'none' ? 'block' : 'none';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
